@@ -1,65 +1,761 @@
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>保障羅盤 · 香港保障產品比較</title>
-  <meta name="description" content="比較香港主要代理行醫療、危疾、人壽、意外產品結構。資料只供參考。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/app.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>長者公屋＋長生津計算機 | MKPA</title>
+<meta name="description" content="長者一次過看清長者生活津貼（長生津）及公屋兩邊的資格：住公屋申請長生津、領長生津申請公屋，或公屋住戶定期申報及長生津覆檢。">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0E5E57">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Noto+Sans+HK:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ===== MKPA 統一標準（由 _standard/mkpa.css 複製，修改請先改呢份再同步到各工具）===== */
+:root{
+  --mk-brand:#00A758; --mk-brand-ink:#00753E; --mk-brand-soft:#E6F6EE; --mk-brand-line:#B4E2C8;
+  --mk-deep:#0E5E57; --mk-ink:#1D2B2A; --mk-muted:#5B6B6A;
+  --mk-bg:#F6F9F8; --mk-surface:#FFFFFF; --mk-line:#E3E9E7;
+  --mk-warn:#8A5B00; --mk-warn-soft:#FFF5DC; --mk-danger:#C62828; --mk-danger-soft:#FDECEC;
+  --mk-sans:"Noto Sans HK","PingFang HK","Microsoft JhengHei",system-ui,sans-serif;
+  --mk-num:"Barlow","Noto Sans HK",system-ui,sans-serif;
+  --mk-max:1320px;                        /* 內容最闊 */
+  --mk-gutter:clamp(16px,3vw,32px);       /* 兩邊留白：手機 16px → 桌面 32px */
+  /* 分類色盤：主色（圓點、色條、圖表）／ -ink 白底寫字 ／ -soft 淺底 */
+  --mk-cat-1:#3072D4; --mk-cat-1-ink:#3072D4; --mk-cat-1-soft:#F1F5FC;   /* 1 醫療／住院 */
+  --mk-cat-2:#D86F35; --mk-cat-2-ink:#B95924; --mk-cat-2-soft:#FCF5F1;   /* 2 人壽／身故 */
+  --mk-cat-3:#953CB3; --mk-cat-3-ink:#953CB3; --mk-cat-3-soft:#F8F1FA;   /* 3 危疾 */
+  --mk-cat-4:#158E92; --mk-cat-4-ink:#138185; --mk-cat-4-soft:#EFF7F7;   /* 4 意外 */
+  --mk-cat-5:#C29323; --mk-cat-5-ink:#926F1B; --mk-cat-5-soft:#FBF7F0;   /* 5 儲蓄／退休／強積金 */
+  --mk-cat-6:#CD486B; --mk-cat-6-ink:#CB4266; --mk-cat-6-soft:#FCF2F5;   /* 6 癌症 */
+  --mk-cat-7:#6F7377; --mk-cat-7-ink:#6F7377; --mk-cat-7-soft:#F5F5F5;   /* 7 中性／其他 */
+  --mk-cat-8:#845C4A; --mk-cat-8-ink:#845C4A; --mk-cat-8-soft:#F6F4F2;   /* 8 後備 */
+}
+/* 分類 class：加喺元素上就用 var(--c) var(--c-ink) var(--c-soft) */
+.mk-cat-1{--c:var(--mk-cat-1);--c-ink:var(--mk-cat-1-ink);--c-soft:var(--mk-cat-1-soft)}
+.mk-cat-2{--c:var(--mk-cat-2);--c-ink:var(--mk-cat-2-ink);--c-soft:var(--mk-cat-2-soft)}
+.mk-cat-3{--c:var(--mk-cat-3);--c-ink:var(--mk-cat-3-ink);--c-soft:var(--mk-cat-3-soft)}
+.mk-cat-4{--c:var(--mk-cat-4);--c-ink:var(--mk-cat-4-ink);--c-soft:var(--mk-cat-4-soft)}
+.mk-cat-5{--c:var(--mk-cat-5);--c-ink:var(--mk-cat-5-ink);--c-soft:var(--mk-cat-5-soft)}
+.mk-cat-6{--c:var(--mk-cat-6);--c-ink:var(--mk-cat-6-ink);--c-soft:var(--mk-cat-6-soft)}
+.mk-cat-7{--c:var(--mk-cat-7);--c-ink:var(--mk-cat-7-ink);--c-soft:var(--mk-cat-7-soft)}
+.mk-cat-8{--c:var(--mk-cat-8);--c-ink:var(--mk-cat-8-ink);--c-soft:var(--mk-cat-8-soft)}
+.mk-chip{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;background:var(--c-soft);color:var(--c-ink);font-size:13px;font-weight:700}
+.mk-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c)}
+/* 版面外框：工具可以用自己嘅 class，但數值要一樣 */
+.mk-wrap{width:100%;max-width:calc(var(--mk-max) + 2 * var(--mk-gutter));margin:0 auto;padding-left:var(--mk-gutter);padding-right:var(--mk-gutter);box-sizing:border-box}
+/* 標題旁 icon */
+.mk-logo{width:32px;height:32px;flex:none;display:block}
+.mk-ecard{display:flex;align-items:center;gap:16px 24px;flex-wrap:wrap;margin:28px 0 0;padding:20px 22px;border-radius:14px;border:1px solid var(--mk-brand-line);background:var(--mk-brand-soft);font-family:var(--mk-sans);color:var(--mk-ink);text-align:left}
+.mk-ecard-txt{flex:1;min-width:200px}
+.mk-ecard-txt b{display:block;font-size:17px;font-weight:700;margin-bottom:2px;color:var(--mk-ink)}
+.mk-ecard-txt span{color:var(--mk-muted);font-size:14.5px;line-height:1.55}
+.mk-ecard-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 22px;border-radius:999px;background:var(--mk-brand);color:#fff!important;font-weight:700;font-size:16px;text-decoration:none!important;white-space:nowrap}
+.mk-ecard-btn:hover{background:var(--mk-brand-ink)}
+.mk-ecard-qr{display:none}
+.mk-copy{margin:14px 0 0;font-size:13px;color:var(--mk-muted);font-family:var(--mk-sans)}
+.mk-print-btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--mk-brand);background:var(--mk-surface);color:var(--mk-brand-ink);font:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap}
+.mk-print-btn:hover{background:var(--mk-brand-soft)}
+.mk-print-head{display:none}
+/* MKPA 工具箱連結（頁尾，電子名片同版權行之間；開新分頁；列印唔印） */
+.mk-home-link{margin:16px 0 0;font-family:var(--mk-sans);font-size:14px;line-height:1.5}
+.mk-home-link a{color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.mk-home-link a:hover{text-decoration-thickness:2px}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mk-no-print,.mk-print-btn,.mk-share-btn,.mk-toast,.mk-ecard-btn,.mk-home-link{display:none!important}
+  .mk-header{position:static}
+  .mk-ecard{break-inside:avoid;padding:10px 14px;margin-top:14px}
+  .mk-ecard-qr{display:block}
+  .mk-ecard-qr svg{width:22mm;height:22mm;display:block}
+  .mk-ecard-txt span:after{content:"（掃描右方二維碼）"}
+  .mk-print-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:2px solid var(--mk-brand);padding:0 0 5px;margin:0 0 10px;font-family:var(--mk-sans);color:var(--mk-muted);font-size:9pt}
+  .mk-print-head b{color:var(--mk-deep);font-size:11pt}
+}
+/* 頁頭：統一鎖住喺頂；第一行 icon + 工具名 + 按鈕 */
+/* 頁頭：深青綠底、白字（分頁掣擺法跟 claimsreport）；第一行 icon＋工具名 → 分頁掣（名右邊）→ 右邊按鈕；平板同手機分頁掣落第二行、左右捲 */
+.mk-header{position:sticky;top:0;z-index:50;background:var(--mk-deep);color:#fff;border-bottom:0}
+.mk-bar{display:flex;align-items:center;gap:16px;min-height:60px}
+.mk-title{display:flex;align-items:center;gap:10px;min-width:0;font-family:var(--mk-sans);font-weight:900;font-size:17px;white-space:nowrap;color:var(--mk-deep);text-decoration:none}
+.mk-title span{overflow:hidden;text-overflow:ellipsis}
+/* 工具名 + 細字簡介（兩行都擠喺 56px 頁頭入面） */
+.mk-name{display:flex;flex-direction:column;justify-content:center;min-width:0;line-height:1.2}
+.mk-sub{display:block;margin-top:2px;color:inherit;font-size:12px;font-weight:500;letter-spacing:0;opacity:.78;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mk-header .mk-title,.mk-header .mk-name{color:#fff}
+.mk-header .mk-sub{color:#C9DDD8;opacity:1}
+/* 分頁掣／導覽：每粒加 .mk-tab 同 .mk-cat-N（或者自己設 --c、--c-ink）；選中用 .on／.active／aria-selected／aria-pressed／aria-current */
+.mk-tabs{--c:var(--mk-brand);--c-ink:var(--mk-brand-ink);display:flex;align-items:center;gap:4px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.mk-tabs::-webkit-scrollbar{display:none}
+.mk-tab{display:inline-flex;align-items:center;gap:6px;flex:none;padding:6px 10px;border:0;border-radius:999px;background:none;color:#D7E7E3;font-family:var(--mk-sans);font-size:14px;font-weight:500;line-height:1.4;white-space:nowrap;text-decoration:none;cursor:pointer;box-shadow:none}
+.mk-tab::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c);flex:none;box-shadow:0 0 0 2px rgba(255,255,255,.35);margin:0}
+.mk-tab:hover{background:rgba(255,255,255,.1);color:#fff;text-decoration:none}
+/* 選中：白色膠囊、字用該分類文字色，色點保留分類色 */
+.mk-tab.on,.mk-tab.active,.mk-tab[aria-selected="true"],.mk-tab[aria-pressed="true"],.mk-tab[aria-current="page"]{background:#fff;color:var(--c-ink);font-weight:700}
+.mk-tab.on::before,.mk-tab.active::before,.mk-tab[aria-selected="true"]::before,.mk-tab[aria-pressed="true"]::before,.mk-tab[aria-current="page"]::before{box-shadow:none}
+/* 平板同手機（≤1023px）：分頁掣落第二行，一行過左右捲 */
+@media (max-width:1023px){.mk-header .mk-bar,.mk-header.mk-bar{flex-wrap:wrap;height:auto;min-height:0;align-content:flex-start;row-gap:8px;column-gap:10px;padding-top:10px;padding-bottom:8px}.mk-bar>.mk-title{flex:1}.mk-header .mk-bar>.mk-tabs,.mk-header.mk-bar>.mk-tabs{order:3;flex:none;width:100%;margin:0}}
+.mk-actions{margin-left:auto;display:flex;align-items:center;gap:8px;flex:none}
+/* 分享呢個方案（同列印按鈕一樣樣式） */
+.mk-share-btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--mk-brand);background:var(--mk-surface);color:var(--mk-brand-ink);font:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap}
+.mk-share-btn:hover{background:var(--mk-brand-soft)}
+.mk-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:999;background:var(--mk-ink);color:#fff;font:600 14px/1.4 var(--mk-sans);padding:10px 16px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.18);max-width:calc(100vw - 32px)}
+/* 頁頭入面嘅掣：透明底、白字白框 */
+.mk-header .mk-share-btn,.mk-header .mk-print-btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+.mk-header .mk-share-btn:hover,.mk-header .mk-print-btn:hover{background:rgba(255,255,255,.12)}
+.mk-share-btn>.mk-long{margin-left:-6px} /* 抵銷 gap，令「分享呢個方案」連埋 */
+.mk-print-btn>.mk-long{margin-left:-2px} /* 「列印 / 存 PDF」保留一個空格 */
+/* 手機：按鈕字縮短（「分享」「列印」） */
+@media (max-width:480px){.mk-long{display:none}.mk-print-btn,.mk-share-btn{padding:0 10px}}
+/* ===== MKPA 統一標準 完 ===== */
+
+/* ===== 工具樣式 ===== */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:120px}
+body{margin:0;background:var(--mk-bg);color:var(--mk-ink);font-family:var(--mk-sans);font-size:16px;line-height:1.6;overflow-x:hidden}
+/* 功能分頁（三級用色第 2 級）：頁頭下色帶＋內容淡底跟所揀情況 */
+body{--c:var(--mk-brand);--c-ink:var(--mk-brand-ink);--c-soft:var(--mk-bg)}
+body.s1{--c:var(--mk-cat-1);--c-ink:var(--mk-cat-1-ink);--c-soft:var(--mk-cat-1-soft)}
+body.s2{--c:var(--mk-cat-2);--c-ink:var(--mk-cat-2-ink);--c-soft:var(--mk-cat-2-soft)}
+body.s3{--c:var(--mk-cat-3);--c-ink:var(--mk-cat-3-ink);--c-soft:var(--mk-cat-3-soft)}
+main{background:var(--c-soft);padding:0 0 40px;min-height:60vh}
+.band{height:4px;background:var(--c)}
+h1,h2,h3,h4{margin:0;line-height:1.3;color:var(--mk-deep)}
+p{margin:0 0 10px}
+a{color:var(--mk-brand-ink)}
+.num{font-family:var(--mk-num);font-variant-numeric:tabular-nums}
+
+.intro{padding:28px 0 6px}
+.intro h1{font-size:clamp(24px,3.4vw,32px);font-weight:900}
+.intro p{color:var(--mk-muted);max-width:760px;margin-top:8px}
+.asof{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.asof span{font-size:13px;background:var(--mk-surface);border:1px solid var(--mk-line);border-radius:999px;padding:3px 10px;color:var(--mk-muted)}
+.asof b{color:var(--mk-ink);font-weight:700}
+
+.step{background:var(--mk-surface);border:1px solid var(--mk-line);border-radius:16px;padding:22px clamp(16px,2.4vw,28px);margin-top:18px}
+.step-h{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.step-no{font-family:var(--mk-num);font-weight:700;font-size:13px;color:#fff;background:var(--mk-deep);border-radius:999px;padding:1px 10px;flex:none}
+.step-h h2{font-size:20px;font-weight:700}
+.step-h p{flex-basis:100%;margin:2px 0 0;color:var(--mk-muted);font-size:14.5px}
+
+/* 情況選擇卡 */
+.sits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.sit{display:flex;flex-direction:column;gap:6px;text-align:left;font:inherit;color:var(--mk-ink);background:var(--mk-surface);border:1.5px solid var(--mk-line);border-top:4px solid var(--c);border-radius:14px;padding:14px 16px;cursor:pointer;min-width:0}
+.sit:hover{border-color:var(--c);border-top-color:var(--c)}
+.sit .k{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--c-ink)}
+.sit b{font-size:17px;color:var(--mk-deep)}
+.sit span.d{font-size:14px;color:var(--mk-muted)}
+.sit[aria-pressed="true"]{background:var(--c-soft);border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c)}
+
+/* 表格欄 */
+.grp{margin-top:18px;padding-top:16px;border-top:1px solid var(--mk-line)}
+.grp:first-child{margin-top:0;padding-top:0;border-top:0}
+.grp h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.grp>.hint{font-size:13.5px;color:var(--mk-muted);margin:0 0 12px}
+.form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px}
+.field{min-width:0}
+.field label.l{display:block;font-size:14px;font-weight:700;margin-bottom:5px}
+.field .hint{font-size:12.5px;color:var(--mk-muted);margin-top:4px;line-height:1.45}
+.field input[type=number],.field select{width:100%;height:44px;border:1px solid var(--mk-line);border-radius:10px;padding:0 12px;font:inherit;font-size:16px;background:var(--mk-surface);color:var(--mk-ink);-webkit-appearance:none;appearance:none;box-shadow:none}
+.field input[type=number]{font-family:var(--mk-num);font-weight:600}
+.field select{background-image:linear-gradient(45deg,transparent 50%,var(--mk-muted) 50%),linear-gradient(135deg,var(--mk-muted) 50%,transparent 50%);background-position:calc(100% - 18px) 19px,calc(100% - 13px) 19px;background-size:5px 5px;background-repeat:no-repeat;padding-right:32px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--mk-brand)}
+.field.ins input{border-color:var(--mk-cat-5);background:var(--mk-cat-5-soft)}
+.field.ins input:focus{border-color:var(--mk-brand)}
+.field.ins label.l::after{content:"兩邊計法不同";margin-left:6px;font-size:11.5px;font-weight:700;color:var(--mk-cat-5-ink);background:var(--mk-surface);border:1px solid var(--mk-cat-5);border-radius:999px;padding:0 6px;vertical-align:1px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{font:inherit;font-size:14.5px;border:1px solid var(--mk-line);background:var(--mk-surface);color:var(--mk-ink);border-radius:999px;padding:6px 14px;cursor:pointer;min-height:38px}
+.seg button[aria-pressed="true"]{background:var(--mk-brand-ink);border-color:var(--mk-brand-ink);color:#fff;font-weight:700}
+.chk{display:flex;align-items:flex-start;gap:9px;font-size:14.5px;line-height:1.45;cursor:pointer;padding:4px 0}
+.chk input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--mk-brand);flex:none}
+.wide{grid-column:1/-1}
+.people{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.person{display:flex;align-items:center;gap:6px;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:10px;padding:4px 6px 4px 10px}
+.person label{font-size:13.5px;color:var(--mk-muted);white-space:nowrap}
+.person input{width:64px;height:34px;border:1px solid var(--mk-line);border-radius:8px;padding:0 8px;font:600 16px var(--mk-num);background:var(--mk-surface)}
+.person input:focus{outline:none;border-color:var(--mk-brand)}
+.person button{border:0;background:none;color:var(--mk-muted);font-size:18px;line-height:1;cursor:pointer;width:28px;height:28px;border-radius:6px}
+.person button:hover{background:var(--mk-line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 16px;border-radius:10px;font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border:1px solid var(--mk-brand);background:var(--mk-surface);color:var(--mk-brand-ink)}
+.btn:hover{background:var(--mk-brand-soft)}
+.btn.primary{background:var(--mk-brand);color:#fff}
+.btn.primary:hover{background:var(--mk-brand-ink)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.empty{color:var(--mk-muted);font-size:15px;padding:6px 0}
+
+/* 結果 */
+.res-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.col{border:1px solid var(--mk-line);border-radius:14px;overflow:hidden;background:var(--mk-surface);min-width:0;display:flex;flex-direction:column}
+.col-h{background:var(--mk-deep);color:#fff;padding:12px 16px}
+.col-h h3{color:#fff;font-size:18px}
+.col-h small{display:block;color:#C9DDD8;font-size:13px;margin-top:1px}
+.col-b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:14px}
+.check{border-radius:12px;padding:12px 14px;border:1px solid var(--mk-line);border-left-width:5px}
+.check.ok{border-left-color:var(--mk-brand);background:var(--mk-brand-soft)}
+.check.warn{border-left-color:#C29323;background:var(--mk-warn-soft)}
+.check.bad{border-left-color:var(--mk-danger);background:var(--mk-danger-soft)}
+.check.info{border-left-color:var(--mk-muted);background:var(--mk-bg)}
+.check .t{font-size:12.5px;font-weight:700;color:var(--mk-muted);letter-spacing:.02em}
+.check .v{font-size:19px;font-weight:900;margin:2px 0 4px;line-height:1.35}
+.check.ok .v{color:var(--mk-brand-ink)} .check.warn .v{color:var(--mk-warn)} .check.bad .v{color:var(--mk-danger)} .check.info .v{color:var(--mk-deep)}
+.check .s{font-size:14px;color:var(--mk-ink);margin:0}
+.meter{margin-top:8px}
+.mrow{display:grid;grid-template-columns:42px minmax(0,1fr);gap:4px 10px;align-items:center;font-size:13.5px;margin-top:8px}
+.mrow .k{font-weight:700;color:var(--mk-muted)}
+.mrow .txt{grid-column:2;font-size:13.5px;line-height:1.45}
+.mrow .txt b{font-family:var(--mk-num);font-size:15px}
+.bar{height:8px;border-radius:999px;background:rgba(14,94,87,.12);overflow:hidden;position:relative}
+.bar i{display:block;height:100%;border-radius:999px;background:var(--mk-brand)}
+.bar.over i{background:var(--mk-danger)}
+.bar.near i{background:#C29323}
+.gap{font-weight:700;white-space:nowrap}
+.gap.ok{color:var(--mk-brand-ink)} .gap.bad{color:var(--mk-danger)}
+.why{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.why li{font-size:14px;line-height:1.5;padding-left:16px;position:relative;color:var(--mk-ink)}
+.why li::before{content:"";position:absolute;left:2px;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--mk-deep)}
+.why li.diff::before{background:var(--mk-cat-5)}
+.why b{font-weight:700}
+.why .src{color:var(--mk-muted);font-size:12.5px}
+.sub-h{font-size:13px;font-weight:700;color:var(--mk-muted);margin:0 0 -6px}
+.diff-box{margin-top:16px;border:1px solid var(--mk-cat-5);background:var(--mk-cat-5-soft);border-radius:14px;padding:14px 16px}
+.diff-box h3{font-size:16px;color:var(--mk-cat-5-ink);margin-bottom:8px}
+.diff-box .why li.diff::before{background:var(--mk-cat-5-ink)}
+.summary{display:none}
+.note{font-size:13px;color:var(--mk-muted);margin-top:14px}
+
+/* 對照表 */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--mk-line);border-radius:12px;background:var(--mk-surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--mk-line)}
+th{background:var(--mk-bg);font-weight:700;color:var(--mk-deep);font-size:13.5px}
+tr:last-child td{border-bottom:0}
+td.y{color:var(--mk-danger);font-weight:700} td.n{color:var(--mk-brand-ink);font-weight:700}
+
+/* 頁尾 */
+.mk-footer{background:var(--mk-deep);color:#D7E7E3;padding:30px 0 26px;font-size:13.5px}
+.mk-footer h4{color:#fff;font-size:14px;margin:0 0 6px}
+.mk-footer p{margin:0 0 8px}
+.mk-footer a{color:#fff}
+.mk-footer .src{margin:0 0 14px;padding-left:18px}
+.mk-footer .src li{margin:2px 0}
+.mk-footer .mk-ecard{color:var(--mk-ink)}
+.mk-footer .mk-ecard a{color:#fff}
+.mk-footer .mk-copy{color:#C9DDD8}
+
+@media (max-width:1023px){
+  .form{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .sits{grid-template-columns:1fr}
+  .res-grid{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  .sit{padding:12px 14px}
+}
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  body{background:#fff;font-size:11pt}
+  main{background:#fff;padding:0}
+  .band,.intro p,.asof,#step1,#step2,.actions,.mk-tabs,.no-print{display:none!important}
+  .step{border:0;padding:0;margin-top:8px}
+  .summary{display:block;font-size:10pt;color:var(--mk-ink);margin:0 0 8px}
+  .summary b{color:var(--mk-deep)}
+  .res-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .col,.check,.diff-box,table,tr{break-inside:avoid}
+  .mk-footer{background:#fff;color:var(--mk-ink);padding:8px 0 0}
+  .mk-footer h4,.mk-footer a,.mk-footer .mk-copy{color:var(--mk-ink)}
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="brand">
-        <div class="mark" aria-hidden="true">保</div>
-        <div>
-          <h1>保障羅盤</h1>
-          <p>醫療／自願醫保、危疾、定期人壽、意外 — 結構比較，唔賣保險。</p>
-        </div>
-      </div>
-      <div class="meta-row" id="stats"></div>
-      <div class="draft">友邦／宏利已補結構比較欄。並排時綠格＋剜只代表「呢一排相對突出」，唔代表整體最好，亦未比保費。其他公司仍待核對。</div>
+<div class="mk-print-head mk-wrap"><b>MKPA · 長者公屋＋長生津計算機</b><span>列印日期：<span class="mk-print-date"></span></span></div>
+
+<header class="mk-header">
+  <div class="mk-wrap mk-bar">
+    <a class="mk-title" href="./"><img class="mk-logo" src="favicon.svg" alt="" width="34" height="34" style="width:34px;height:34px"><span class="mk-name">長者公屋＋長生津計算機<small class="mk-sub">一次過看長生津及公屋資格</small></span></a>
+    <nav class="mk-tabs" aria-label="情況">
+      <button type="button" class="mk-tab mk-cat-1" data-s="1" aria-pressed="false">① 住公屋申請長生津</button>
+      <button type="button" class="mk-tab mk-cat-2" data-s="2" aria-pressed="false">② 領長生津申請公屋</button>
+      <button type="button" class="mk-tab mk-cat-3" data-s="3" aria-pressed="false">③ 兩樣都有：申報／覆檢</button>
+    </nav>
+    <div class="mk-actions">
+      <button type="button" class="mk-share-btn" onclick="shareScheme()">分享<span class="mk-long">呢個方案</span></button>
+      <button type="button" class="mk-print-btn" onclick="window.print()">列印<span class="mk-long"> / 存 PDF</span></button>
     </div>
-  </header>
-  <div class="wrap">
-    <section class="panel">
-      <div class="filters">
-        <div>
-          <label>保障類型</label>
-          <div class="cats" id="cats"></div>
-        </div>
-        <div>
-          <label for="company">保險公司</label>
-          <select id="company"></select>
-        </div>
-        <div>
-          <label for="q">搜產品或公司</label>
-          <input id="q" type="search" placeholder="例如：緻尚保、VHIS、保柏" />
-        </div>
-        <div>
-          <label>資料狀態</label>
-          <button type="button" class="toggle" id="verifiedOnly">只睇已核對</button>
-        </div>
-      </div>
-    </section>
-    <section class="panel">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
-        <h2 style="margin:0;font-size:1.05rem">產品</h2>
-        <div class="hint" id="count"></div>
-      </div>
-      <p class="hint">最多選 3 隻同一類型，下面同底部都可以睇比較。</p>
-      <div class="grid" id="grid"></div>
-    </section>
-    <section class="panel">
-      <h2 style="margin:0 0 8px;font-size:1.05rem">並排比較</h2>
-      <div id="compare"></div>
-    </section>
-    <div class="dock" id="dock"></div>
-    <p class="disclaimer" id="disclaimer"></p>
   </div>
-  <script src="./js/app.js"></script>
+</header>
+<div class="band" aria-hidden="true"></div>
+
+<main>
+<div class="mk-wrap">
+  <section class="intro">
+    <h1>長生津和公屋，兩邊一次過看</h1>
+    <p>社署（長生津）和房委會（公屋）各自審查入息及資產，計法並不相同：例如保單現金價值，社署不計，房委會計。先揀情況，再填需要的資料，結果分兩欄顯示。只作初步參考，最終以兩個部門審核為準。</p>
+    <div class="asof">
+      <span>長生津限額 <b>2026 年 2 月 1 日</b>起</span>
+      <span>公屋限額 <b>2026/27 年度</b>（2026 年 4 月 1 日起）</span>
+    </div>
+  </section>
+
+  <section class="step" id="step1">
+    <div class="step-h"><span class="step-no">1</span><h2>揀情況</h2><p>按長者現時的情況揀一項，之後只會問需要的資料。</p></div>
+    <div class="sits">
+      <button type="button" class="sit mk-cat-1" data-s="1" aria-pressed="false"><span class="k"><span class="mk-dot"></span>情況 ①</span><b>住緊公屋，想申請長生津</b><span class="d">看長生津能否批出，以及公屋住戶申報會否受影響。</span></button>
+      <button type="button" class="sit mk-cat-2" data-s="2" aria-pressed="false"><span class="k"><span class="mk-dot"></span>情況 ②</span><b>領緊長生津，想申請公屋</b><span class="d">看遞表及配屋前詳細審查是否符合，可用哪個長者優先計劃。</span></button>
+      <button type="button" class="sit mk-cat-3" data-s="3" aria-pressed="false"><span class="k"><span class="mk-dot"></span>情況 ③</span><b>住公屋又領長生津</b><span class="d">定期申報（住戶申報／富戶政策）及長生津覆檢。</span></button>
+    </div>
+  </section>
+
+  <section class="step" id="step2" hidden>
+    <div class="step-h"><span class="step-no">2</span><h2>填資料</h2><p>金額一律以港元、每月計；資產填現時市值。不用填姓名。</p></div>
+
+    <div class="grp">
+      <h3>家庭成員</h3>
+      <p class="hint" id="h_people">長生津只看長者本人及配偶；公屋看整戶。</p>
+      <div class="form">
+        <div class="field"><label class="l" for="age">長者本人年齡</label><input id="age" type="number" inputmode="numeric" min="50" max="120" placeholder="例如 68"></div>
+        <div class="field"><span class="l" style="display:block;font-size:14px;font-weight:700;margin-bottom:5px">婚姻狀況</span>
+          <div class="seg" id="mar"><button type="button" data-v="0" aria-pressed="true">單身／喪偶／離婚</button><button type="button" data-v="1" aria-pressed="false">已婚或同居</button></div></div>
+        <div class="field" id="f_sp" hidden><label class="l" for="spAge">配偶年齡</label><input id="spAge" type="number" inputmode="numeric" min="18" max="120" placeholder="例如 63"><div class="hint">已婚或同居（共用經濟資源）要合併計</div></div>
+        <div class="field wide"><span class="l" style="display:block;font-size:14px;font-weight:700;margin-bottom:5px" id="l_oth">其他同住家人（公屋戶籍）</span>
+          <div class="people" id="people"></div>
+          <div class="hint" id="h_oth">例如同住子女、孫。只計入公屋，不計入長生津。</div></div>
+        <div class="field wide" id="f_nonkin" hidden><label class="chk"><input type="checkbox" id="nonkin"> 一同申請的長者之間沒有親屬關係（「共享頤年」非親屬長者住戶，限額較高）</label></div>
+        <div class="field" id="f_yrs" hidden><label class="l" for="yrs">已住公屋多久</label><select id="yrs"><option value="lt10">未住滿 10 年</option><option value="ge10">已住滿 10 年</option><option value="nl">經「批出新租約」或「租約事務管理」政策獲批（不論年期）</option></select><div class="hint">決定要申報居住情況、物業，還是入息及資產</div></div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <h3>每月入息（長者及配偶）</h3>
+      <p class="hint">不用填長生津、生果金本身，兩邊都不計。</p>
+      <div class="form">
+        <div class="field"><label class="l" for="wA">長者工作收入</label><input id="wA" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">未扣強積金；包括兼職、自僱</div></div>
+        <div class="field f-sp" hidden><label class="l" for="wS">配偶工作收入</label><input id="wS" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">未扣強積金</div></div>
+        <div class="field"><label class="l" for="pen">長俸、退休金、年金</label><input id="pen" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">年金按月攤分</div></div>
+        <div class="field"><label class="l" for="rent">收租</label><input id="rent" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">扣差餉、地租後</div></div>
+        <div class="field ins"><label class="l" for="sup">不同住子女、親友給的錢</label><input id="sup" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">家用、零用錢；同住家人的錢不用填</div></div>
+        <div class="field"><label class="l" for="oth">利息、股息及其他</label><input id="oth" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">按月平均</div></div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <h3>資產（長者及配偶合計）</h3>
+      <p class="hint">按現時市值，扣除按揭等欠款。保單現金價值和強積金分開填，因為兩個部門計法不同。</p>
+      <div class="form">
+        <div class="field"><label class="l" for="cash">現金及銀行存款</label><input id="cash" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">包括外幣、定期、電子錢包</div></div>
+        <div class="field"><label class="l" for="inv">股票、基金、債券、金條</label><input id="inv" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">首飾不用填</div></div>
+        <div class="field ins"><label class="l" for="ins">保單現金價值</label><input id="ins" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">儲蓄、投資、分紅保單：現金價值連累積紅利及利息</div></div>
+        <div class="field ins"><label class="l" for="mpfA">長者的強積金／公積金</label><input id="mpfA" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">未提取的結餘；已提取的放入存款</div></div>
+        <div class="field ins f-sp" hidden><label class="l" for="mpfS">配偶的強積金／公積金</label><input id="mpfS" type="number" inputmode="numeric" min="0" placeholder="0"><label class="chk" id="f_spEarly" hidden><input type="checkbox" id="spEarly"> 配偶已可提取（例如 60 歲提早退休）</label></div>
+        <div class="field"><label class="l" for="prop">其他物業、車位、內地或海外物業</label><input id="prop" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">非香港住宅；包括鄉下祖屋</div></div>
+        <div class="field wide"><label class="chk"><input type="checkbox" id="hkSelf"> 擁有一個<b>自住</b>的香港住宅物業（包括與他人共同擁有）</label>
+          <label class="chk"><input type="checkbox" id="hkOther"> 另外擁有其他香港住宅物業（非自住）</label>
+          <div class="field" id="f_hkOtherV" hidden style="max-width:360px;margin-top:6px"><label class="l" for="hkOtherV">非自住香港住宅物業市值</label><input id="hkOtherV" type="number" inputmode="numeric" min="0" placeholder="0"></div></div>
+      </div>
+    </div>
+
+    <div class="grp" id="g_fam" hidden>
+      <h3>其他同住家人</h3>
+      <p class="hint">只用於公屋。入息填扣除強制性強積金供款後的數目。</p>
+      <div class="form">
+        <div class="field"><label class="l" for="famInc">家人每月入息合計</label><input id="famInc" type="number" inputmode="numeric" min="0" placeholder="0"></div>
+        <div class="field"><label class="l" for="famAst">家人資產合計</label><input id="famAst" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">存款、投資、保單現金價值、可提取強積金等</div></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn primary" onclick="document.getElementById('step3').scrollIntoView({behavior:'smooth'})">看結果 ↓</button>
+      <button type="button" class="btn" onclick="resetAll()">清除重填</button>
+    </div>
+  </section>
+
+  <section class="step" id="step3" hidden>
+    <div class="step-h"><span class="step-no">3</span><h2>結果</h2><p id="resNote">隨資料即時更新。</p></div>
+    <p class="summary" id="summary"></p>
+    <div id="out"><p class="empty">請先填長者本人年齡。</p></div>
+  </section>
+
+  <section class="step" id="ref">
+    <div class="step-h"><span class="step-no">i</span><h2>兩邊計法對照</h2><p>同一筆錢，社署和房委會的處理不同。</p></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>項目</th><th>長生津（社署）</th><th>公屋（房委會）</th></tr></thead>
+      <tbody>
+        <tr><td>審查單位</td><td>長者本人；已婚或同居則夫婦合併</td><td>全戶戶籍成員（包括同住子女）</td></tr>
+        <tr><td>保單現金價值</td><td class="n">不計（社署沒有區分保單類別）</td><td class="y">計（儲蓄或投資保險的保單價值，連紅利利息）</td></tr>
+        <tr><td>自住香港住宅物業</td><td class="n">一個豁免</td><td class="y">申請公屋不可擁有；住戶擁有須遷出</td></tr>
+        <tr><td>內地、海外物業</td><td>計資產</td><td>計資產（扣除按揭）</td></tr>
+        <tr><td>強積金</td><td>長者本人的計；配偶未滿 65 歲豁免</td><td>已提取或可隨時提取的計</td></tr>
+        <tr><td>不同住子女給的錢</td><td class="n">不計入息</td><td class="y">計入息（親友資助）</td></tr>
+        <tr><td>長生津、生果金本身</td><td>—</td><td class="n">不計入息（申請及富戶申報都剔除）</td></tr>
+        <tr><td>工作收入</td><td>計；配偶未滿 65 歲的強制性供款可豁免</td><td>可扣強制性強積金供款（5%，上限 $1,500）</td></tr>
+        <tr><td>收租</td><td>計淨收益</td><td>扣差餉地租後再扣 20% 開支</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">本工具未計算：居港年期、綜援（不可同時領長生津）、年金已繳保費（長生津豁免）、離港日數等。一筆過退休金在申請公屋時可否扣除，房委會申請須知沒有寫明；投資相連保單在長生津如何處理，社署亦沒有寫明，請向有關部門確認。</p>
+  </section>
+</div>
+</main>
+
+<footer class="mk-footer">
+  <div class="mk-wrap">
+    <h4>免責聲明</h4>
+    <p>本計算機只按官方公布的限額及規則作初步估算，不構成任何資格保證或專業意見。實際資格以社會福利署及香港房屋委員會的審核為準；計法如有疑問，請直接向社會福利署或房屋署查詢。</p>
+    <h4>資料來源（2026 年 11 月核實）</h4>
+    <ul class="src">
+      <li><a href="https://www.swd.gov.hk/oala/" target="_blank" rel="noopener">社會福利署：長者生活津貼（每月 $4,345；2026 年 2 月 1 日起限額）</a></li>
+      <li><a href="https://www.swd.gov.hk/oala/doc/2026/SWD675A_SSA%20Guidance%20Notes_Chi_(8_2026).pdf" target="_blank" rel="noopener">社署：公共福利金計劃申請指引 SWD675A（2026 年 8 月）</a></li>
+      <li><a href="https://www.swd.gov.hk/oala/doc/OALAWebsiteFAQ_Income_Asset_TC.pdf" target="_blank" rel="noopener">社署：長者生活津貼常見問題（入息及資產）</a></li>
+      <li><a href="https://www.housingauthority.gov.hk/tc/flat-application/income-and-asset-limits/index.html" target="_blank" rel="noopener">房委會：公屋入息及資產限額（2026 年 4 月 1 日起）</a></li>
+      <li><a href="https://www.housingauthority.gov.hk/tc/common/pdf/global-elements/forms/flat-application/HD274A.pdf" target="_blank" rel="noopener">房委會：入息及資產淨值限額 HD274A（2026 年 3 月）</a></li>
+      <li><a href="https://www.housingauthority.gov.hk/tc/common/pdf/global-elements/forms/flat-application/HD274.pdf" target="_blank" rel="noopener">房委會：公共租住房屋申請須知 HD274（2022 年 11 月修訂）</a></li>
+      <li><a href="https://www.housingauthority.gov.hk/tc/public-housing/tenancy-matters/income-and-asset-declaration/index.html" target="_blank" rel="noopener">房委會：住戶入息及資產申報</a></li>
+      <li><a href="https://www.housingauthority.gov.hk/tc/common/pdf/public-housing/tenancy-matters/income-and-asset-declaration/HD1119C%20(Rev.%204-2026)%20sample.pdf" target="_blank" rel="noopener">房委會：富戶政策申報表樣本 HD1119C（2026 年 4 月）</a></li>
+      <li><a href="https://www.housingauthority.gov.hk/tc/common/pdf/public-housing/tenancy-matters/income-and-asset-declaration/HD1120C%20(Rev.%204-2026).pdf" target="_blank" rel="noopener">房委會：富戶政策入息及資產淨值限額 HD1120C（2026 年 4 月）</a></li>
+    </ul>
+    <div class="mk-ecard">
+      <div class="mk-ecard-txt"><b>想進一步了解或有疑問？</b><span>歡迎查看我的電子名片，可直接 WhatsApp、加 IG 或儲存聯絡資料。</span></div>
+      <a class="mk-ecard-btn" href="https://api.portfoplus.com/api/v1/adviser/5e41564ab3b1bc00153394db?m=link&amp;r=adviser" target="_blank" rel="noopener">查看電子名片 <span aria-hidden="true">→</span></a>
+      <div class="mk-ecard-qr"><svg viewBox="0 0 41 41" width="90" height="90" shape-rendering="crispEdges" aria-label="電子名片二維碼"><rect width="41" height="41" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM11,2h1v1h-1zM16,2h1v1h-1zM19,2h1v1h-1zM20,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM25,2h1v1h-1zM28,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM35,2h1v1h-1zM36,2h1v1h-1zM37,2h1v1h-1zM38,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM15,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM22,3h1v1h-1zM24,3h1v1h-1zM28,3h1v1h-1zM29,3h1v1h-1zM32,3h1v1h-1zM38,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM14,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM25,4h1v1h-1zM29,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM35,4h1v1h-1zM36,4h1v1h-1zM38,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM14,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM21,5h1v1h-1zM24,5h1v1h-1zM25,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM29,5h1v1h-1zM30,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM35,5h1v1h-1zM36,5h1v1h-1zM38,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM11,6h1v1h-1zM16,6h1v1h-1zM17,6h1v1h-1zM20,6h1v1h-1zM21,6h1v1h-1zM25,6h1v1h-1zM30,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM35,6h1v1h-1zM36,6h1v1h-1zM38,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM12,7h1v1h-1zM14,7h1v1h-1zM20,7h1v1h-1zM22,7h1v1h-1zM23,7h1v1h-1zM24,7h1v1h-1zM29,7h1v1h-1zM32,7h1v1h-1zM38,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM30,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM35,8h1v1h-1zM36,8h1v1h-1zM37,8h1v1h-1zM38,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM15,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM23,9h1v1h-1zM24,9h1v1h-1zM25,9h1v1h-1zM26,9h1v1h-1zM28,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM19,10h1v1h-1zM22,10h1v1h-1zM27,10h1v1h-1zM29,10h1v1h-1zM30,10h1v1h-1zM32,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM35,10h1v1h-1zM36,10h1v1h-1zM2,11h1v1h-1zM3,11h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM9,11h1v1h-1zM11,11h1v1h-1zM13,11h1v1h-1zM16,11h1v1h-1zM17,11h1v1h-1zM18,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM31,11h1v1h-1zM37,11h1v1h-1zM3,12h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM8,12h1v1h-1zM11,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM20,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM29,12h1v1h-1zM32,12h1v1h-1zM34,12h1v1h-1zM35,12h1v1h-1zM37,12h1v1h-1zM38,12h1v1h-1zM2,13h1v1h-1zM4,13h1v1h-1zM5,13h1v1h-1zM7,13h1v1h-1zM11,13h1v1h-1zM14,13h1v1h-1zM16,13h1v1h-1zM18,13h1v1h-1zM21,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM35,13h1v1h-1zM38,13h1v1h-1zM4,14h1v1h-1zM5,14h1v1h-1zM8,14h1v1h-1zM11,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM15,14h1v1h-1zM19,14h1v1h-1zM22,14h1v1h-1zM26,14h1v1h-1zM27,14h1v1h-1zM28,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM32,14h1v1h-1zM34,14h1v1h-1zM36,14h1v1h-1zM37,14h1v1h-1zM38,14h1v1h-1zM3,15h1v1h-1zM5,15h1v1h-1zM6,15h1v1h-1zM7,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM13,15h1v1h-1zM14,15h1v1h-1zM15,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM25,15h1v1h-1zM30,15h1v1h-1zM31,15h1v1h-1zM33,15h1v1h-1zM37,15h1v1h-1zM2,16h1v1h-1zM3,16h1v1h-1zM6,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM15,16h1v1h-1zM17,16h1v1h-1zM23,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM33,16h1v1h-1zM34,16h1v1h-1zM35,16h1v1h-1zM38,16h1v1h-1zM2,17h1v1h-1zM5,17h1v1h-1zM6,17h1v1h-1zM7,17h1v1h-1zM10,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM14,17h1v1h-1zM16,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM24,17h1v1h-1zM25,17h1v1h-1zM28,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM33,17h1v1h-1zM34,17h1v1h-1zM37,17h1v1h-1zM38,17h1v1h-1zM5,18h1v1h-1zM6,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM9,18h1v1h-1zM10,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM22,18h1v1h-1zM24,18h1v1h-1zM25,18h1v1h-1zM26,18h1v1h-1zM27,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM34,18h1v1h-1zM36,18h1v1h-1zM37,18h1v1h-1zM38,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM5,19h1v1h-1zM9,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM33,19h1v1h-1zM35,19h1v1h-1zM37,19h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM13,20h1v1h-1zM14,20h1v1h-1zM15,20h1v1h-1zM17,20h1v1h-1zM24,20h1v1h-1zM26,20h1v1h-1zM27,20h1v1h-1zM28,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM37,20h1v1h-1zM38,20h1v1h-1zM4,21h1v1h-1zM6,21h1v1h-1zM7,21h1v1h-1zM15,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM28,21h1v1h-1zM32,21h1v1h-1zM35,21h1v1h-1zM38,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM12,22h1v1h-1zM14,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM19,22h1v1h-1zM22,22h1v1h-1zM24,22h1v1h-1zM26,22h1v1h-1zM27,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM34,22h1v1h-1zM36,22h1v1h-1zM3,23h1v1h-1zM4,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM11,23h1v1h-1zM12,23h1v1h-1zM16,23h1v1h-1zM18,23h1v1h-1zM21,23h1v1h-1zM22,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM28,23h1v1h-1zM30,23h1v1h-1zM35,23h1v1h-1zM3,24h1v1h-1zM5,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM18,24h1v1h-1zM19,24h1v1h-1zM22,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM27,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM35,24h1v1h-1zM37,24h1v1h-1zM38,24h1v1h-1zM3,25h1v1h-1zM5,25h1v1h-1zM7,25h1v1h-1zM9,25h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM17,25h1v1h-1zM18,25h1v1h-1zM20,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM23,25h1v1h-1zM25,25h1v1h-1zM26,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM33,25h1v1h-1zM34,25h1v1h-1zM37,25h1v1h-1zM38,25h1v1h-1zM3,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM16,26h1v1h-1zM17,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM24,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM29,26h1v1h-1zM32,26h1v1h-1zM34,26h1v1h-1zM36,26h1v1h-1zM37,26h1v1h-1zM38,26h1v1h-1zM2,27h1v1h-1zM3,27h1v1h-1zM6,27h1v1h-1zM7,27h1v1h-1zM10,27h1v1h-1zM11,27h1v1h-1zM13,27h1v1h-1zM18,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM23,27h1v1h-1zM25,27h1v1h-1zM28,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM33,27h1v1h-1zM2,28h1v1h-1zM4,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM12,28h1v1h-1zM14,28h1v1h-1zM15,28h1v1h-1zM17,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM26,28h1v1h-1zM29,28h1v1h-1zM37,28h1v1h-1zM38,28h1v1h-1zM2,29h1v1h-1zM7,29h1v1h-1zM9,29h1v1h-1zM12,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM16,29h1v1h-1zM17,29h1v1h-1zM18,29h1v1h-1zM20,29h1v1h-1zM21,29h1v1h-1zM23,29h1v1h-1zM24,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM33,29h1v1h-1zM35,29h1v1h-1zM37,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM9,30h1v1h-1zM13,30h1v1h-1zM14,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM19,30h1v1h-1zM21,30h1v1h-1zM24,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM36,30h1v1h-1zM38,30h1v1h-1zM10,31h1v1h-1zM12,31h1v1h-1zM14,31h1v1h-1zM18,31h1v1h-1zM19,31h1v1h-1zM20,31h1v1h-1zM21,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM30,31h1v1h-1zM34,31h1v1h-1zM35,31h1v1h-1zM37,31h1v1h-1zM2,32h1v1h-1zM3,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM7,32h1v1h-1zM8,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM27,32h1v1h-1zM30,32h1v1h-1zM32,32h1v1h-1zM34,32h1v1h-1zM36,32h1v1h-1zM38,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM10,33h1v1h-1zM11,33h1v1h-1zM14,33h1v1h-1zM15,33h1v1h-1zM23,33h1v1h-1zM24,33h1v1h-1zM28,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM35,33h1v1h-1zM37,33h1v1h-1zM2,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM14,34h1v1h-1zM16,34h1v1h-1zM17,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM24,34h1v1h-1zM27,34h1v1h-1zM29,34h1v1h-1zM30,34h1v1h-1zM31,34h1v1h-1zM32,34h1v1h-1zM33,34h1v1h-1zM34,34h1v1h-1zM36,34h1v1h-1zM37,34h1v1h-1zM2,35h1v1h-1zM4,35h1v1h-1zM5,35h1v1h-1zM6,35h1v1h-1zM8,35h1v1h-1zM10,35h1v1h-1zM11,35h1v1h-1zM12,35h1v1h-1zM15,35h1v1h-1zM16,35h1v1h-1zM18,35h1v1h-1zM19,35h1v1h-1zM21,35h1v1h-1zM22,35h1v1h-1zM23,35h1v1h-1zM25,35h1v1h-1zM26,35h1v1h-1zM27,35h1v1h-1zM28,35h1v1h-1zM29,35h1v1h-1zM30,35h1v1h-1zM32,35h1v1h-1zM34,35h1v1h-1zM37,35h1v1h-1zM38,35h1v1h-1zM2,36h1v1h-1zM4,36h1v1h-1zM5,36h1v1h-1zM6,36h1v1h-1zM8,36h1v1h-1zM10,36h1v1h-1zM12,36h1v1h-1zM16,36h1v1h-1zM17,36h1v1h-1zM18,36h1v1h-1zM20,36h1v1h-1zM23,36h1v1h-1zM28,36h1v1h-1zM30,36h1v1h-1zM35,36h1v1h-1zM36,36h1v1h-1zM37,36h1v1h-1zM38,36h1v1h-1zM2,37h1v1h-1zM8,37h1v1h-1zM11,37h1v1h-1zM14,37h1v1h-1zM15,37h1v1h-1zM21,37h1v1h-1zM22,37h1v1h-1zM23,37h1v1h-1zM26,37h1v1h-1zM29,37h1v1h-1zM30,37h1v1h-1zM32,37h1v1h-1zM34,37h1v1h-1zM35,37h1v1h-1zM38,37h1v1h-1zM2,38h1v1h-1zM3,38h1v1h-1zM4,38h1v1h-1zM5,38h1v1h-1zM6,38h1v1h-1zM7,38h1v1h-1zM8,38h1v1h-1zM10,38h1v1h-1zM12,38h1v1h-1zM13,38h1v1h-1zM15,38h1v1h-1zM17,38h1v1h-1zM18,38h1v1h-1zM19,38h1v1h-1zM21,38h1v1h-1zM24,38h1v1h-1zM25,38h1v1h-1zM27,38h1v1h-1zM28,38h1v1h-1zM31,38h1v1h-1zM32,38h1v1h-1zM34,38h1v1h-1zM36,38h1v1h-1zM37,38h1v1h-1zM38,38h1v1h-1z" fill="#000"/></svg></div>
+    </div>
+    <p class="mk-home-link"><a href="https://mkpa.netlify.app/" target="_blank" rel="noopener">MKPA 工具箱：睇其他實用工具 ↗</a></p>
+    <p class="mk-copy">© <span class="mk-year">2026</span> Michael Koo Protection Alliance (MKPA). 版權所有。</p>
+  </div>
+</footer>
+
+<script>
+/* ===================================================================
+   政策數字：每年更新
+   ・長生津（OALA）：每年 2 月 1 日調整 → 改 OALA（金額、限額、asOf）
+   ・公屋（PRH）：每年 4 月 1 日調整 → 改 PRH（申請限額、非親屬長者、富戶資產界線、asOf）
+   改完同時更新頁面「限額」標籤（.asof）同頁尾資料來源日期。
+   =================================================================== */
+const OALA = {
+  asOf: "2026 年 2 月 1 日", rate: 4345,
+  single: { inc: 10900, ast: 415000 },
+  couple: { inc: 16680, ast: 630000 }
+};
+const PRH = {
+  asOf: "2026/27 年度（2026 年 4 月 1 日起）",
+  // 一般家庭：index 0 = 1 人 … 9 = 10 人或以上
+  inc: [13230, 20680, 25870, 32020, 40150, 46620, 51400, 57470, 63380, 69150],
+  ast: [295000, 400000, 521000, 608000, 675000, 731000, 781000, 816000, 904000, 974000],
+  // 非親屬關係之長者住戶（2 人起；index 0 留空）
+  nkInc: [null, 24820, 31040, 38420, 48180, 55940, 61680, 68960, 76060, 82980],
+  nkAst: [null, 800000, 1042000, 1216000, 1350000, 1462000, 1562000, 1632000, 1808000, 1948000],
+  // 富戶政策：資產淨值超逾此數須遷出（HD1120C，官方進位數）
+  woAst: [1330000, 2070000, 2590000, 3210000, 4020000, 4670000, 5140000, 5750000, 6340000, 6920000],
+  wo55Ast: 3210000 // 全部成員年逾 55 歲的 1–3 人家庭
+};
+/* =================================================================== */
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const money = n => "$" + Math.round(n).toLocaleString("en-US");
+const NUMS = ["age","spAge","wA","wS","pen","rent","sup","oth","cash","inv","ins","mpfA","mpfS","prop","hkOtherV","famInc","famAst"];
+const CHKS = ["nonkin","spEarly","hkSelf","hkOther"];
+let S = 0, MAR = 0, OTHERS = [];
+
+const v = id => { const x = parseFloat($("#" + id).value); return isFinite(x) && x > 0 ? x : 0; };
+const has = id => $("#" + id).value.trim() !== "";
+const c = id => $("#" + id).checked;
+const mpfDed = w => w < 7100 ? 0 : Math.min(w * 0.05, 1500); // 僱員強制性供款
+
+/* ---------- 介面 ---------- */
+function setSit(s, scroll){
+  S = s;
+  document.body.className = s ? "s" + s : "";
+  $$("[data-s]").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.s === s)));
+  $("#step2").hidden = !s; $("#step3").hidden = !s;
+  const on = $(".mk-tab[aria-pressed=true]"); if (on) on.scrollIntoView({block:"nearest", inline:"center"});
+  layout(); calc();
+  if (scroll) $("#step2").scrollIntoView({behavior:"smooth"});
+}
+function setMar(m){ MAR = m; $$("#mar button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.v === m))); layout(); calc(); }
+function renderPeople(){
+  const box = $("#people");
+  box.innerHTML = OTHERS.map((a, i) => `<span class="person"><label for="p${i}">家人 ${i+1} 年齡</label><input id="p${i}" type="number" inputmode="numeric" min="0" max="120" value="${a === "" ? "" : a}" placeholder="歲"><button type="button" aria-label="刪除家人 ${i+1}" data-del="${i}">×</button></span>`).join("")
+    + (OTHERS.length < 9 ? `<button type="button" class="btn" id="addP">＋ 加一位家人</button>` : "");
+  box.querySelectorAll("input").forEach((el, i) => el.addEventListener("input", () => { OTHERS[i] = el.value; calc(); }));
+  box.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => { OTHERS.splice(+b.dataset.del, 1); renderPeople(); layout(); calc(); }));
+  const add = $("#addP"); if (add) add.addEventListener("click", () => { OTHERS.push(""); renderPeople(); layout(); calc(); const ins = box.querySelectorAll("input"); ins[ins.length-1].focus(); });
+}
+function layout(){
+  $("#f_sp").hidden = !MAR;
+  $$(".f-sp").forEach(e => e.hidden = !MAR);
+  const sp = v("spAge");
+  $("#f_spEarly").hidden = !(MAR && has("spAge") && sp >= 60 && sp < 65);
+  $("#f_yrs").hidden = S === 2;
+  $("#f_nonkin").hidden = !(S === 2 && (MAR || OTHERS.length));
+  $("#g_fam").hidden = !OTHERS.length;
+  $("#f_hkOtherV").hidden = !c("hkOther");
+  $("#l_oth").textContent = S === 2 ? "其他一同申請公屋的家人" : "其他公屋戶籍成員";
+  $("#h_oth").textContent = S === 2 ? "例如一同上樓的子女、孫。只計入公屋，不計入長生津。" : "同一單位戶籍內的子女、孫等。只計入公屋，不計入長生津。";
+}
+
+/* ---------- 計算 ---------- */
+function gather(){
+  const age = v("age"), sp = MAR ? v("spAge") : 0;
+  const others = OTHERS.map(a => parseFloat(a)).filter(a => isFinite(a) && a >= 0);
+  const ages = [age].concat(MAR ? [sp] : [], others);
+  const n = ages.length;
+  const wA = v("wA"), wS = MAR ? v("wS") : 0;
+  const hkSelf = c("hkSelf"), hkOther = c("hkOther");
+  return { age, sp, spOk: !MAR || has("spAge"), others, ages, n, wA, wS, pen: v("pen"), rent: v("rent"), sup: v("sup"), oth: v("oth"),
+    cash: v("cash"), inv: v("inv"), ins: v("ins"), mpfA: v("mpfA"), mpfS: MAR ? v("mpfS") : 0, prop: v("prop"),
+    hkSelf, hkOther, hkOtherV: hkOther ? v("hkOtherV") : 0, famInc: others.length ? v("famInc") : 0, famAst: others.length ? v("famAst") : 0,
+    nonkin: S === 2 && n > 1 && c("nonkin"), spEarly: c("spEarly"), yrs: $("#yrs").value };
+}
+
+function oalaCalc(d){
+  const L = MAR ? OALA.couple : OALA.single;
+  const spU65 = MAR && d.sp < 65;
+  const inc = d.wA + Math.max(0, d.wS - (spU65 ? mpfDed(d.wS) : 0)) + d.pen + d.rent + d.oth;
+  const ast = d.cash + d.inv + d.mpfA + (MAR && !spU65 ? d.mpfS : 0) + d.prop + d.hkOtherV;
+  return { L, inc, ast, spU65, ageOk: d.age >= 65, incOk: inc <= L.inc, astOk: ast <= L.ast };
+}
+
+function prhIncome(d){
+  return Math.max(0, d.wA - mpfDed(d.wA)) + Math.max(0, d.wS - mpfDed(d.wS)) + d.pen + d.rent * 0.8 + d.sup + d.oth + d.famInc;
+}
+function prhAssets(d){
+  const spWd = MAR && (d.sp >= 65 || d.spEarly);
+  return d.cash + d.inv + d.ins + d.mpfA + (spWd ? d.mpfS : 0) + d.prop + d.famAst;
+}
+const idx = n => Math.min(n, 10) - 1;
+
+function prhApply(d, ages){
+  const n = ages.length, i = idx(n);
+  const all60 = ages.every(a => a >= 60);
+  const nk = d.nonkin && n >= 2;
+  const incL = nk ? PRH.nkInc[i] : PRH.inc[i];
+  const astL = nk ? PRH.nkAst[i] : (all60 ? PRH.ast[i] * 2 : PRH.ast[i]);
+  const inc = prhIncome(d), ast = prhAssets(d);
+  return { n, all60, nk, incL, astL, inc, ast, incOk: inc <= incL, astOk: ast <= astL, prop: d.hkSelf || d.hkOther };
+}
+function scheme(ages){
+  const n = ages.length;
+  if (n === 1) return ages[0] >= 58 ? { k: "高齡單身人士優先配屋計劃", d: "遞表時年滿 58 歲，配屋時須年滿 60 歲。" } : null;
+  if (ages.every(a => a >= 58)) return { k: "「共享頤年」優先配屋計劃", d: "全部成員遞表時年滿 58 歲，配屋時須年滿 60 歲。" };
+  if (ages.some(a => a >= 60) && ages.some(a => a >= 18)) return { k: "「天倫樂」優先配屋計劃", d: "與年滿 60 歲的長者同住（或分別入住兩個就近單位），比一般家庭提早 6 個月處理。" };
+  return null;
+}
+
+/* ---------- 輸出元件 ---------- */
+function meter(label, val, lim){
+  const pct = lim ? Math.min(100, val / lim * 100) : 0;
+  const cls = val > lim ? "over" : pct >= 85 ? "near" : "";
+  const gap = val > lim ? `<span class="gap bad">超出 ${money(val - lim)}</span>` : `<span class="gap ok">仍有 ${money(lim - val)} 空間</span>`;
+  return `<div class="mrow"><span class="k">${label}</span><div class="bar ${cls}"><i style="width:${pct.toFixed(1)}%"></i></div>
+    <div class="txt"><b>${money(val)}</b> ／ 上限 ${money(lim)}　${gap}</div></div>`;
+}
+const box = (cls, t, vv, s, extra) => `<div class="check ${cls}"><div class="t">${t}</div><div class="v">${vv}</div>${s ? `<p class="s">${s}</p>` : ""}${extra || ""}</div>`;
+const col = (title, sub, body) => `<div class="col"><div class="col-h"><h3>${title}</h3><small>${sub}</small></div><div class="col-b">${body}</div></div>`;
+const list = items => items.length ? `<ul class="why">${items.join("")}</ul>` : "";
+const li = (html, diff) => `<li${diff ? ' class="diff"' : ""}>${html}</li>`;
+
+/* ---------- 長生津欄 ---------- */
+function oalaColumn(d){
+  const r = oalaCalc(d);
+  const title = S === 1 ? "申請長生津" : S === 2 ? "繼續領取長生津" : "長生津覆檢";
+  const unit = MAR ? "夫婦合併計算" : "單身人士";
+  let main;
+  const meters = `<div class="meter">${meter("入息", r.inc, r.L.inc)}${meter("資產", r.ast, r.L.ast)}</div>`;
+  if (!r.ageOk) main = box("bad", "結果", "未符合年齡", "長生津須年滿 65 歲。", meters);
+  else if (r.incOk && r.astOk) main = box("ok", "結果", S === 1 ? "初步符合資格" : "初步可繼續領取",
+    `每月 <b class="num">${money(OALA.rate)}</b>${MAR && d.sp >= 65 ? "；配偶年滿 65 歲亦可各自申領" : ""}。`, meters);
+  else main = box("bad", "結果", S === 1 ? "初步不符合" : "超出限額",
+    (!r.incOk && !r.astOk ? "入息和資產都超出" : !r.incOk ? "入息超出" : "資產超出") + "長生津上限" + (S === 1 ? "。" : "，須即時通知社署。"), meters);
+
+  const why = [];
+  if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 社署<b>不計</b>資產（沒有區分保單類別）；但退保或提取出來的錢存入銀行就要計。`, true));
+  if (d.hkSelf) why.push(li("一個香港自住物業<b>豁免</b>。", true));
+  if (d.hkOtherV || d.prop) why.push(li(`非自住物業（包括內地、海外）計資產，共 <b class="num">${money(d.hkOtherV + d.prop)}</b>；收租淨收益計入息。`));
+  if (d.sup) why.push(li(`不同住子女、親友給的 <b class="num">${money(d.sup)}</b> 社署<b>不計入息</b>，但儲起來的部分會變成資產。`, true));
+  if (MAR && r.spU65 && (d.mpfS || d.wS)) why.push(li("配偶未滿 65 歲：其強積金權益<b>豁免</b>計資產，每月強制性供款亦不計入息。", true));
+  if (d.mpfA) why.push(li(`長者本人的強積金 <b class="num">${money(d.mpfA)}</b> 計資產（年滿 65 歲可提取）。`));
+  if (d.others.length) why.push(li("同住子女等家人的入息和資產<b>不計</b>：長生津只看長者本人及配偶。"));
+  if (S === 2) why.push(li("獲編配公屋本身不影響長生津，但地址改變要通知社署。"));
+  if (S === 3) why.push(li("社署會隨機抽查覆檢；入息、資產超出限額或婚姻狀況改變，要即時申報。"));
+  return col("長生津", `${title}・${unit}・限額 ${OALA.asOf}起`, main + (why.length ? `<p class="sub-h">點解</p>${list(why)}` : ""));
+}
+
+/* ---------- 公屋欄 ---------- */
+function prhColumn(d){
+  if (S === 2) return prhApplyColumn(d);
+  return prhTenantColumn(d);
+}
+function prhApplyColumn(d){
+  const sch = scheme(d.ages);
+  // 遞表時：現時年齡；詳細審查／配屋時：長者計劃成員須已滿 60 歲
+  const now = prhApply(d, d.ages);
+  const laterAges = d.ages.map(a => sch && sch.k !== "「天倫樂」優先配屋計劃" && a >= 58 && a < 60 ? 60 : a);
+  const later = prhApply(d, laterAges);
+  const two = laterAges.some((a, i) => a !== d.ages[i]);
+  const pmsg = "由簽署申請表當日至配屋後簽新租約，全部成員不可擁有任何香港住宅物業（包括自住、與人共有、已簽臨時買賣合約）。";
+  let body = "";
+  if (now.prop) {
+    body += box("bad", "遞表及詳細審查", "不符合資格", pmsg);
+  } else {
+    const st = (r, label, sub) => {
+      const ok = r.incOk && r.astOk;
+      return box(ok ? "ok" : "bad", label, ok ? "初步符合限額" : "超出限額", sub,
+        `<div class="meter">${meter("入息", r.inc, r.incL)}${meter("資產", r.ast, r.astL)}</div>`);
+    };
+    const lbl = r => `${r.n} 人${r.nk ? "非親屬長者住戶" : r.all60 ? "全長者家庭（資產限額 ×2）" : "家庭"}`;
+    if (two) {
+      body += st(now, "① 遞表時", lbl(now) + "。");
+      body += st(later, "② 配屋前詳細審查", lbl(later) + "，假設屆時全部成員已滿 60 歲。");
+      if (!(now.incOk && now.astOk) && later.incOk && later.astOk) body += box("warn", "留意", "遞表時差一點", "全部成員滿 60 歲後資產限額會加倍；可考慮待最年輕成員滿 60 歲才遞表，或向房屋署查詢。");
+    } else {
+      body += st(now, "遞表及配屋前詳細審查", lbl(now) + "；兩個階段都要符合。");
+    }
+  }
+  if (sch) body += box("info", "可用的長者優先安排", sch.k, sch.d);
+  const why = [];
+  if (now.prop) why.push(li((d.hkSelf ? "長生津豁免的自住物業，" : "") + "在公屋申請一律<b>不容許</b>擁有。", true));
+  if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 房委會<b>計</b>資產（儲蓄或投資保險的保單價值，連紅利利息）；長生津則不計。`, true));
+  if (d.sup) why.push(li(`不同住子女、親友給的 <b class="num">${money(d.sup)}</b> 房委會<b>計入息</b>（親友資助）；長生津則不計。`, true));
+  why.push(li("每月領取的長生津<b>不計入</b>公屋入息（申請須知 HD274 第 4.4.1(b) 段）。"));
+  if (MAR && d.mpfS && !(d.sp >= 65 || d.spEarly)) why.push(li("配偶的強積金未可提取，暫不計資產；可提取後（65 歲，或 60 歲提早退休）便要計。"));
+  if (d.mpfA) why.push(li(`長者本人的強積金可隨時提取，計資產 <b class="num">${money(d.mpfA)}</b>。退休時一筆過提取的款項可否扣除，申請須知沒有寫明，請向房屋署確認。`));
+  if (d.wA || d.wS) why.push(li("工作收入已扣強制性強積金供款（5%，上限 $1,500）。"));
+  if (d.rent) why.push(li("收租再扣 20% 開支後計入息。"));
+  why.push(li("由遞表到簽租約都要一直符合限額，限額每年 4 月更新，詳細審查時按當時限額計。"));
+  return col("公屋", `申請輪候及配屋前詳細審查・限額 ${PRH.asOf}`, body + `<p class="sub-h">點解</p>${list(why)}`);
+}
+function prhTenantColumn(d){
+  const n = d.n, i = idx(n);
+  const all60 = d.ages.every(a => a >= 60), all55 = d.ages.every(a => a > 55);
+  const prop = d.hkSelf || d.hkOther;
+  const inc = prhIncome(d), ast = prhAssets(d);
+  let sub = "", body = "";
+  const why = [li("每月領取的長生津<b>不計入</b>公屋住戶入息（富戶申報表 HD1119C 列明剔除）。")];
+  if (all60) {
+    sub = "全部成員年滿 60 歲：豁免入息及資產申報";
+    body += box("ok", "住戶申報", "毋須申報入息及資產", "全戶成員年滿 60 歲，只須每兩年申報居住情況，亦毋須申報是否擁有香港住宅物業。");
+    if (d.ins || prop) why.push(li("所以保單現金價值、物業等今次都不用向房委會申報；但如日後加入未滿 60 歲的成員，便要按一般住戶申報。", true));
+    else why.push(li("如日後加入未滿 60 歲的成員（例如子女遷入），便要按一般住戶申報。"));
+  } else if (d.yrs === "lt10") {
+    sub = "未住滿 10 年：申報居住情況及香港住宅物業";
+    body += prop ? box("bad", "住戶申報", "須遷出", "任何戶籍成員擁有香港住宅物業，不論入息資產，都須遷出公屋。")
+                 : box("ok", "住戶申報", "毋須申報入息及資產", "每兩年申報居住情況及是否擁有香港住宅物業；入息、資產今次不用報。");
+    why.push(li("住滿 10 年後便要按富戶政策申報入息及資產，以下為屆時的參考："));
+    body += wellOff(inc, ast, n, i, all55, "住滿 10 年時（如資料不變）", prop);
+  } else {
+    sub = d.yrs === "nl" ? "批出新租約政策：按富戶政策申報" : "已住滿 10 年：富戶政策申報";
+    body += wellOff(inc, ast, n, i, all55, "富戶政策評估", prop);
+  }
+  if (!all60) {
+    if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 富戶申報<b>要計</b>資產（有現金價值的保險，按申報月最後一日價值）；長生津則不計。`, true));
+    if (d.sup) why.push(li(`不同住子女、親友給的 <b class="num">${money(d.sup)}</b> 房委會計入息；長生津不計。`, true));
+    if (d.mpfA || d.mpfS) why.push(li("可隨時提取的強積金計資產；已收取的一筆過退休金可從資產扣除（HD1119C 註八）。"));
+    if (all55 && n <= 3) why.push(li(`全部成員年逾 55 歲的 ${n} 人家庭，資產遷出界線為 <b class="num">${money(PRH.wo55Ast)}</b>。`));
+    why.push(li("富戶政策下租金級別只看入息；資產只要不超過遷出界線，便不會加租。"));
+  }
+  return col("公屋", `住戶申報・${sub}`, body + `<p class="sub-h">點解</p>${list(why)}`);
+}
+function wellOff(inc, ast, n, i, all55, label, prop){
+  const L = PRH.inc[i], ratio = inc / L;
+  const astLine = all55 && n <= 3 ? PRH.wo55Ast : PRH.woAst[i];
+  const tiers = [[2, "正常租金"], [3, "2.5 倍淨租金另加差餉"], [4, "3.5 倍淨租金另加差餉"], [5, "4.5 倍淨租金另加差餉"]];
+  let cls, vv, s;
+  if (prop) { cls = "bad"; vv = "須遷出"; s = "擁有香港住宅物業。"; }
+  else if (ast > astLine) { cls = "bad"; vv = "須遷出"; s = "資產淨值超逾遷出界線。"; }
+  else if (ratio > 5) { cls = "bad"; vv = "須遷出"; s = "家庭入息超逾公屋入息限額 5 倍。"; }
+  else {
+    const t = tiers.find(t => ratio <= t[0]);
+    cls = t[0] === 2 ? "ok" : "warn"; vv = t[1];
+    s = `家庭入息約為公屋入息限額 ${money(L)} 的 <b class="num">${ratio.toFixed(2)}</b> 倍。` + (t[0] === 5 ? "連續兩個申報周期在此級別須遷出。" : "");
+  }
+  const nextLim = ratio <= 2 ? L * 2 : ratio <= 3 ? L * 3 : ratio <= 4 ? L * 4 : L * 5;
+  const incLabel = ratio <= 2 ? "正常租金上限（2 倍）" : "下一級上限";
+  return box(cls, label, vv, s,
+    `<div class="meter">${meter("入息", inc, nextLim)}<div class="txt" style="font-size:12.5px;color:var(--mk-muted);margin:2px 0 0 52px">${incLabel}</div>${meter("資產", ast, astLine)}<div class="txt" style="font-size:12.5px;color:var(--mk-muted);margin:2px 0 0 52px">遷出界線${all55 && n <= 3 ? "（全部成員年逾 55 歲）" : "（入息限額 100 倍）"}</div></div>`);
+}
+
+/* ---------- 兩邊差異 ---------- */
+function diffBox(d){
+  const items = [];
+  if (d.ins) items.push(li(`<b>保單現金價值 ${money(d.ins)}</b>：社署不計，房委會計。`, true));
+  if (d.hkSelf) items.push(li("<b>自住香港物業</b>：長生津豁免，申請公屋則不可擁有。", true));
+  if (d.sup) items.push(li(`<b>子女親友資助 ${money(d.sup)}</b>：社署不計入息，房委會計。`, true));
+  if (MAR && d.mpfS) items.push(li("<b>配偶強積金</b>：社署在配偶未滿 65 歲時豁免；房委會看是否已可提取。", true));
+  if (d.others.length) items.push(li("<b>同住家人</b>：長生津不計，公屋計入全戶入息資產。", true));
+  if (!items.length) return "";
+  const exempt = S !== 2 && d.ages.every(a => a >= 60);
+  return `<div class="diff-box"><h3>今次影響結果的計法差異</h3>${list(items)}${exempt ? '<p class="note" style="margin:8px 0 0">現時全戶年滿 60 歲，豁免公屋入息資產申報，以上差異暫時不影響公屋；有未滿 60 歲成員加入便會影響。</p>' : ""}</div>`;
+}
+
+function summaryText(d){
+  const sit = ["", "住公屋申請長生津", "領長生津申請公屋", "住公屋及領長生津（申報／覆檢）"][S];
+  const fam = (MAR ? `配偶 ${d.sp} 歲` : "單身") + (d.others.length ? `，另有 ${d.others.length} 位家人（${d.others.join("、")} 歲）` : "");
+  const yrs = S !== 2 ? `；${$("#yrs").selectedOptions[0].text}` : "";
+  return `<b>情況：</b>${sit}。<b>長者</b> ${d.age} 歲，${fam}${yrs}。`;
+}
+
+function calc(){
+  if (!S) return;
+  const d = gather();
+  writeHash();
+  if (!has("age") || !d.spOk) { $("#out").innerHTML = `<p class="empty">請先填${!has("age") ? "長者本人年齡" : "配偶年齡"}。</p>`; return; }
+  $("#summary").innerHTML = summaryText(d);
+  $("#out").innerHTML = `<div class="res-grid">${oalaColumn(d)}${prhColumn(d)}</div>${diffBox(d)}
+    <p class="note">只作初步估算。長生津另須符合居港年期、不可同時領綜援；公屋另須符合入境權、居港年期等。數據更新後，再開分享連結會用新限額計算；要保存當日結果請用「列印 / 存 PDF」。</p>`;
+}
+
+/* ---------- 分享連結（只放情況及數字，不含姓名） ---------- */
+function writeHash(){
+  const p = new URLSearchParams();
+  p.set("s", S); if (MAR) p.set("m", 1);
+  NUMS.forEach(id => { const x = $("#" + id).value.trim(); if (x !== "" && !$("#" + id).closest("[hidden]")) p.set(id, x); });
+  CHKS.forEach(id => { if (c(id) && !$("#" + id).closest("[hidden]")) p.set(id, 1); });
+  if (OTHERS.length) p.set("o", OTHERS.join("."));
+  if (S !== 2) p.set("yrs", $("#yrs").value);
+  history.replaceState(null, "", "#" + p.toString());
+}
+function readHash(){
+  const p = new URLSearchParams(location.hash.slice(1));
+  const s = +p.get("s"); if (![1,2,3].includes(s)) return;
+  MAR = p.get("m") === "1" ? 1 : 0;
+  NUMS.forEach(id => { if (p.has(id)) $("#" + id).value = p.get(id).replace(/[^\d.]/g, ""); });
+  CHKS.forEach(id => { $("#" + id).checked = p.get(id) === "1"; });
+  OTHERS = p.has("o") ? p.get("o").split(".").map(x => x.replace(/\D/g, "")).slice(0, 9) : [];
+  if (["lt10","ge10","nl"].includes(p.get("yrs"))) $("#yrs").value = p.get("yrs");
+  renderPeople(); setMar(MAR); setSit(s, false);
+}
+function shareScheme(){
+  if (S) writeHash();
+  mkShare(location.href);
+}
+function resetAll(){
+  NUMS.forEach(id => $("#" + id).value = ""); CHKS.forEach(id => $("#" + id).checked = false);
+  OTHERS = []; $("#yrs").value = "lt10"; renderPeople(); setMar(0); calc();
+}
+
+$$("[data-s]").forEach(b => b.addEventListener("click", () => setSit(+b.dataset.s, b.classList.contains("sit"))));
+$$("#mar button").forEach(b => b.addEventListener("click", () => setMar(+b.dataset.v)));
+document.addEventListener("input", e => { if (e.target.closest("#step2")) { layout(); calc(); } });
+document.addEventListener("change", e => { if (e.target.closest("#step2")) { layout(); calc(); } });
+renderPeople();
+readHash();
+</script>
+<script>
+/* 分享呢個方案：手機彈出分享選單（WhatsApp 等），電腦複製連結。
+   url 要包括客人揀嘅設定（例如放喺 # 後面），但唔可以包括客人姓名。 */
+function mkShare(url){
+  url=url||location.href;
+  if(navigator.share&&matchMedia('(pointer:coarse)').matches){navigator.share({title:document.title,url:url}).catch(function(){});return;}
+  (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(
+    function(){mkToast('已複製連結，客人撳開會見到同一個方案');},
+    function(){window.prompt('複製呢條連結：',url);});
+}
+function mkToast(msg){var t=document.createElement('div');t.className='mk-toast';t.setAttribute('role','status');t.textContent=msg;(document.querySelector('dialog[open]')||document.body).appendChild(t);setTimeout(function(){t.remove();},2400);}
+</script>
+<script>
+(function(){var d=new Date();
+document.querySelectorAll('.mk-year').forEach(function(e){e.textContent=d.getFullYear();});
+document.querySelectorAll('.mk-print-date').forEach(function(e){e.textContent=d.getFullYear()+' 年 '+(d.getMonth()+1)+' 月 '+d.getDate()+' 日';});})();
+</script>
 </body>
 </html>
