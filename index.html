@@ -197,6 +197,24 @@ a{color:var(--mk-brand-ink)}
 .check.warn{border-left-color:#C29323;background:var(--mk-warn-soft)}
 .check.bad{border-left-color:var(--mk-danger);background:var(--mk-danger-soft)}
 .check.info{border-left-color:var(--mk-muted);background:var(--mk-bg)}
+.alert{margin:0 0 14px}
+/* 金額即時顯示（防打漏零） */
+.fmt{font-family:var(--mk-num);font-size:13px;font-weight:600;color:var(--mk-brand-ink);margin-top:3px}
+.fmt:empty{display:none}
+/* 頁頭 icon（標準容許 24–40px） */
+.mk-header .mk-logo{width:34px;height:34px}
+/* 手機底部結果列 */
+.mobar{display:none}
+@media (max-width:760px){
+  .mobar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:10px;width:100%;margin:0;border:0;border-top:1px solid var(--mk-line);background:var(--mk-surface);box-shadow:0 -4px 14px rgba(0,0,0,.08);padding:8px 16px calc(8px + env(safe-area-inset-bottom));font:inherit;color:var(--mk-ink);text-align:left;cursor:pointer}
+  .mobar[hidden]{display:none}
+  html.has-mobar body{padding-bottom:64px}
+}
+.mobar .it{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
+.mobar .it small{font-size:11.5px;font-weight:700;color:var(--mk-muted)}
+.mobar .it b{font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mobar .it.ok b{color:var(--mk-brand-ink)} .mobar .it.warn b{color:var(--mk-warn)} .mobar .it.bad b{color:var(--mk-danger)} .mobar .it.info b{color:var(--mk-deep)}
+.mobar .go{flex:none;font-size:13px;font-weight:700;color:#fff;background:var(--mk-brand);border-radius:8px;padding:6px 10px}
 .check .t{font-size:12.5px;font-weight:700;color:var(--mk-muted);letter-spacing:.02em}
 .check .v{font-size:19px;font-weight:900;margin:2px 0 4px;line-height:1.35}
 .check.ok .v{color:var(--mk-brand-ink)} .check.warn .v{color:var(--mk-warn)} .check.bad .v{color:var(--mk-danger)} .check.info .v{color:var(--mk-deep)}
@@ -231,7 +249,7 @@ table{border-collapse:collapse;width:100%;font-size:14px}
 th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--mk-line)}
 th{background:var(--mk-bg);font-weight:700;color:var(--mk-deep);font-size:13.5px}
 tr:last-child td{border-bottom:0}
-td.y{color:var(--mk-danger);font-weight:700} td.n{color:var(--mk-brand-ink);font-weight:700}
+td.y,td.n{color:var(--mk-deep);font-weight:700}
 
 /* 頁尾 */
 .mk-footer{background:var(--mk-deep);color:#D7E7E3;padding:30px 0 26px;font-size:13.5px}
@@ -247,6 +265,10 @@ td.y{color:var(--mk-danger);font-weight:700} td.n{color:var(--mk-brand-ink);font
 @media (max-width:1023px){
   .form{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+@media (max-width:480px){
+  .mk-header .mk-logo{width:28px;height:28px}
+  .mk-header .mk-title{font-size:16px;gap:8px}
+}
 @media (max-width:760px){
   .sits{grid-template-columns:1fr}
   .res-grid{grid-template-columns:1fr}
@@ -257,12 +279,16 @@ td.y{color:var(--mk-danger);font-weight:700} td.n{color:var(--mk-brand-ink);font
   @page{size:A4 portrait;margin:12mm}
   body{background:#fff;font-size:11pt}
   main{background:#fff;padding:0}
-  .band,.intro p,.asof,#step1,#step2,.actions,.mk-tabs,.no-print{display:none!important}
+  .band,.intro p,.asof,#step1,#step2,.actions,.mk-tabs,.no-print,.mk-header,#resNote,.step-no,.mobar{display:none!important}
+  html.has-mobar body{padding-bottom:0}
   .step{border:0;padding:0;margin-top:8px}
   .summary{display:block;font-size:10pt;color:var(--mk-ink);margin:0 0 8px}
   .summary b{color:var(--mk-deep)}
   .res-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .col,.check,.diff-box,table,tr{break-inside:avoid}
+  .col,.check,.diff-box,table,tr,#ref{break-inside:avoid}
+  table{font-size:9pt} th,td{padding:4px 8px}
+  .mk-footer{font-size:8.5pt}
+  .mk-footer .src li{margin:0}
   .mk-footer{background:#fff;color:var(--mk-ink);padding:8px 0 0}
   .mk-footer h4,.mk-footer a,.mk-footer .mk-copy{color:var(--mk-ink)}
 }
@@ -273,7 +299,7 @@ td.y{color:var(--mk-danger);font-weight:700} td.n{color:var(--mk-brand-ink);font
 
 <header class="mk-header">
   <div class="mk-wrap mk-bar">
-    <a class="mk-title" href="./"><img class="mk-logo" src="favicon.svg" alt="" width="34" height="34" style="width:34px;height:34px"><span class="mk-name">長者公屋＋長生津計算機<small class="mk-sub">一次過看長生津及公屋資格</small></span></a>
+    <a class="mk-title" href="./"><img class="mk-logo" src="favicon.svg" alt="" width="34" height="34"><span class="mk-name">長者公屋＋長生津計算機<small class="mk-sub">一次過看長生津及公屋資格</small></span></a>
     <nav class="mk-tabs" aria-label="情況">
       <button type="button" class="mk-tab mk-cat-1" data-s="1" aria-pressed="false">① 住公屋申請長生津</button>
       <button type="button" class="mk-tab mk-cat-2" data-s="2" aria-pressed="false">② 領長生津申請公屋</button>
@@ -321,6 +347,11 @@ td.y{color:var(--mk-danger);font-weight:700} td.n{color:var(--mk-brand-ink);font
         <div class="field wide"><span class="l" style="display:block;font-size:14px;font-weight:700;margin-bottom:5px" id="l_oth">其他同住家人（公屋戶籍）</span>
           <div class="people" id="people"></div>
           <div class="hint" id="h_oth">例如同住子女、孫。只計入公屋，不計入長生津。</div></div>
+        <div class="field wide" id="f_cssa" hidden><span class="l" style="display:block;font-size:14px;font-weight:700;margin-bottom:5px">長者現時領取</span>
+          <label class="chk"><input type="checkbox" id="cssa"> 綜援</label>
+          <label class="chk"><input type="checkbox" id="da"> 傷殘津貼</label>
+          <div class="hint">長生津不可與綜援、傷殘津貼同時領取</div></div>
+        <div class="field wide" id="f_famEx" hidden><label class="chk"><input type="checkbox" id="famEx"> 未滿 60 歲的戶籍成員全部都領綜援，或合資格領傷殘津貼</label><div class="hint">屬房委會豁免入息資產申報的住戶類別</div></div>
         <div class="field wide" id="f_nonkin" hidden><label class="chk"><input type="checkbox" id="nonkin"> 一同申請的長者之間沒有親屬關係（「共享頤年」非親屬長者住戶，限額較高）</label></div>
         <div class="field" id="f_yrs" hidden><label class="l" for="yrs">已住公屋多久</label><select id="yrs"><option value="lt10">未住滿 10 年</option><option value="ge10">已住滿 10 年</option><option value="nl">經「批出新租約」或「租約事務管理」政策獲批（不論年期）</option></select><div class="hint">決定要申報居住情況、物業，還是入息及資產</div></div>
       </div>
@@ -335,7 +366,7 @@ td.y{color:var(--mk-danger);font-weight:700} td.n{color:var(--mk-brand-ink);font
         <div class="field"><label class="l" for="pen">長俸、退休金、年金</label><input id="pen" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">年金按月攤分</div></div>
         <div class="field"><label class="l" for="rent">收租</label><input id="rent" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">扣差餉、地租後</div></div>
         <div class="field ins"><label class="l" for="sup">不同住子女、親友給的錢</label><input id="sup" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">家用、零用錢；同住家人的錢不用填</div></div>
-        <div class="field"><label class="l" for="oth">利息、股息及其他</label><input id="oth" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">按月平均</div></div>
+        <div class="field ins"><label class="l" for="oth">利息、股息</label><input id="oth" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">按月平均；社署入息定義沒有列出，長生津不計</div></div>
       </div>
     </div>
 
@@ -388,14 +419,17 @@ td.y{color:var(--mk-danger);font-weight:700} td.n{color:var(--mk-brand-ink);font
         <tr><td>強積金</td><td>長者本人的計；配偶未滿 65 歲豁免</td><td>已提取或可隨時提取的計</td></tr>
         <tr><td>不同住子女給的錢</td><td class="n">不計入息</td><td class="y">計入息（親友資助）</td></tr>
         <tr><td>長生津、生果金本身</td><td>—</td><td class="n">不計入息（申請及富戶申報都剔除）</td></tr>
-        <tr><td>工作收入</td><td>計；配偶未滿 65 歲的強制性供款可豁免</td><td>可扣強制性強積金供款（5%，上限 $1,500）</td></tr>
+        <tr><td>工作收入</td><td>計；配偶未滿 65 歲的強制性供款可豁免</td><td>可扣強制性強積金供款（5%，上限 $1,500；65 歲或以上毋須供款，不扣）</td></tr>
         <tr><td>收租</td><td>計淨收益</td><td>扣差餉地租後再扣 20% 開支</td></tr>
+        <tr><td>利息、股息</td><td class="n">入息定義沒有列出（存款、股票本身計資產）</td><td class="y">計入息</td></tr>
       </tbody>
     </table></div>
     <p class="note">本工具未計算：居港年期、綜援（不可同時領長生津）、年金已繳保費（長生津豁免）、離港日數等。一筆過退休金在申請公屋時可否扣除，房委會申請須知沒有寫明；投資相連保單在長生津如何處理，社署亦沒有寫明，請向有關部門確認。</p>
   </section>
 </div>
 </main>
+
+<button type="button" class="mobar" id="mobar" hidden aria-label="跳到結果"></button>
 
 <footer class="mk-footer">
   <div class="mk-wrap">
@@ -453,13 +487,15 @@ const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const money = n => "$" + Math.round(n).toLocaleString("en-US");
 const NUMS = ["age","spAge","wA","wS","pen","rent","sup","oth","cash","inv","ins","mpfA","mpfS","prop","hkOtherV","famInc","famAst"];
-const CHKS = ["nonkin","spEarly","hkSelf","hkOther"];
+const CHKS = ["nonkin","spEarly","hkSelf","hkOther","cssa","da","famEx"];
 let S = 0, MAR = 0, OTHERS = [];
 
 const v = id => { const x = parseFloat($("#" + id).value); return isFinite(x) && x > 0 ? x : 0; };
 const has = id => $("#" + id).value.trim() !== "";
 const c = id => $("#" + id).checked;
-const mpfDed = w => w < 7100 ? 0 : Math.min(w * 0.05, 1500); // 僱員強制性供款
+// 僱員強制性供款：18–64 歲、月入 $7,100 以上先要供（5%，上限 $1,500）
+const mpfDed = (w, age) => (age >= 65 || age < 18 || w < 7100) ? 0 : Math.min(w * 0.05, 1500);
+const near = (val, lim) => val <= lim && val >= lim * 0.95; // 接近上限（5% 以內）
 
 /* ---------- 介面 ---------- */
 function setSit(s, scroll){
@@ -486,7 +522,10 @@ function layout(){
   const sp = v("spAge");
   $("#f_spEarly").hidden = !(MAR && has("spAge") && sp >= 60 && sp < 65);
   $("#f_yrs").hidden = S === 2;
-  $("#f_nonkin").hidden = !(S === 2 && (MAR || OTHERS.length));
+  $("#f_nonkin").hidden = !(S === 2 && OTHERS.length);
+  $("#f_cssa").hidden = S !== 1;
+  const agesNow = [v("age")].concat(MAR && has("spAge") ? [sp] : [], OTHERS.map(a => parseFloat(a)).filter(a => isFinite(a)));
+  $("#f_famEx").hidden = !(S !== 2 && has("age") && agesNow.some(a => a < 60));
   $("#g_fam").hidden = !OTHERS.length;
   $("#f_hkOtherV").hidden = !c("hkOther");
   $("#l_oth").textContent = S === 2 ? "其他一同申請公屋的家人" : "其他公屋戶籍成員";
@@ -504,19 +543,21 @@ function gather(){
   return { age, sp, spOk: !MAR || has("spAge"), others, ages, n, wA, wS, pen: v("pen"), rent: v("rent"), sup: v("sup"), oth: v("oth"),
     cash: v("cash"), inv: v("inv"), ins: v("ins"), mpfA: v("mpfA"), mpfS: MAR ? v("mpfS") : 0, prop: v("prop"),
     hkSelf, hkOther, hkOtherV: hkOther ? v("hkOtherV") : 0, famInc: others.length ? v("famInc") : 0, famAst: others.length ? v("famAst") : 0,
-    nonkin: S === 2 && n > 1 && c("nonkin"), spEarly: c("spEarly"), yrs: $("#yrs").value };
+    nonkin: S === 2 && others.length > 0 && c("nonkin"), spEarly: c("spEarly"), yrs: $("#yrs").value,
+    cssa: S === 1 && c("cssa"), da: S === 1 && c("da"), famEx: S !== 2 && c("famEx") && !$("#f_famEx").hidden };
 }
 
 function oalaCalc(d){
   const L = MAR ? OALA.couple : OALA.single;
   const spU65 = MAR && d.sp < 65;
-  const inc = d.wA + Math.max(0, d.wS - (spU65 ? mpfDed(d.wS) : 0)) + d.pen + d.rent + d.oth;
+  // 社署入息定義：工作、自僱、長俸、淨租金、固定年金；利息股息沒有列出（存款本身計資產）
+  const inc = d.wA + Math.max(0, d.wS - (spU65 ? mpfDed(d.wS, d.sp) : 0)) + d.pen + d.rent;
   const ast = d.cash + d.inv + d.mpfA + (MAR && !spU65 ? d.mpfS : 0) + d.prop + d.hkOtherV;
   return { L, inc, ast, spU65, ageOk: d.age >= 65, incOk: inc <= L.inc, astOk: ast <= L.ast };
 }
 
 function prhIncome(d){
-  return Math.max(0, d.wA - mpfDed(d.wA)) + Math.max(0, d.wS - mpfDed(d.wS)) + d.pen + d.rent * 0.8 + d.sup + d.oth + d.famInc;
+  return Math.max(0, d.wA - mpfDed(d.wA, d.age)) + Math.max(0, d.wS - mpfDed(d.wS, d.sp)) + d.pen + d.rent * 0.8 + d.sup + d.oth + d.famInc;
 }
 function prhAssets(d){
   const spWd = MAR && (d.sp >= 65 || d.spEarly);
@@ -536,7 +577,7 @@ function prhApply(d, ages){
 function scheme(ages){
   const n = ages.length;
   if (n === 1) return ages[0] >= 58 ? { k: "高齡單身人士優先配屋計劃", d: "遞表時年滿 58 歲，配屋時須年滿 60 歲。" } : null;
-  if (ages.every(a => a >= 58)) return { k: "「共享頤年」優先配屋計劃", d: "全部成員遞表時年滿 58 歲，配屋時須年滿 60 歲。" };
+  if (ages.every(a => a >= 58)) return { k: "「共享頤年」優先配屋計劃", d: "兩位或以上年滿 58 歲人士（可包括非親屬）一同申請，配屋時全部須年滿 60 歲。家庭申請（例如夫婦）如全部成員年滿 60 歲並符合資格，亦會自動轉為此計劃（HD274 第 2.3.7、2.5 段）。" };
   if (ages.some(a => a >= 60) && ages.some(a => a >= 18)) return { k: "「天倫樂」優先配屋計劃", d: "與年滿 60 歲的長者同住（或分別入住兩個就近單位），比一般家庭提早 6 個月處理。" };
   return null;
 }
@@ -562,10 +603,17 @@ function oalaColumn(d){
   let main;
   const meters = `<div class="meter">${meter("入息", r.inc, r.L.inc)}${meter("資產", r.ast, r.L.ast)}</div>`;
   if (!r.ageOk) main = box("bad", "結果", "未符合年齡", "長生津須年滿 65 歲。", meters);
-  else if (r.incOk && r.astOk) main = box("ok", "結果", S === 1 ? "初步符合資格" : "初步可繼續領取",
-    `每月 <b class="num">${money(OALA.rate)}</b>${MAR && d.sp >= 65 ? "；配偶年滿 65 歲亦可各自申領" : ""}。`, meters);
+  else if (r.incOk && r.astOk) {
+    const nr = near(r.inc, r.L.inc) || near(r.ast, r.L.ast);
+    main = box(nr ? "warn" : "ok", "結果", (S === 1 ? "初步符合資格" : "初步可繼續領取") + (nr ? "，但接近上限" : ""),
+      `每月 <b class="num">${money(OALA.rate)}</b>${MAR && d.sp >= 65 ? "；配偶年滿 65 歲亦可各自申領" : ""}。` + (nr ? "離上限不足 5%，入息或資產稍增便會超出。" : ""), meters);
+  }
   else main = box("bad", "結果", S === 1 ? "初步不符合" : "超出限額",
     (!r.incOk && !r.astOk ? "入息和資產都超出" : !r.incOk ? "入息超出" : "資產超出") + "長生津上限" + (S === 1 ? "。" : "，須即時通知社署。"), meters);
+  if (r.ageOk && !(r.incOk && r.astOk)) main += d.age >= 70
+    ? box("info", "另一選擇", "可改申請生果金", "生果金（高齡津貼）年滿 70 歲可申請，不設入息及資產審查；不可與長生津同時領取。")
+    : box("info", "另一選擇", "70 歲起可申請生果金", "生果金（高齡津貼）不設入息及資產審查，年滿 70 歲可申請。");
+  if (d.cssa || d.da) main += box("warn", "留意", "不可同時領取", `長生津不可與${d.cssa && d.da ? "綜援或傷殘津貼" : d.cssa ? "綜援" : "傷殘津貼"}同時領取；轉領長生津前，先比較兩者金額，並向社署查詢。`);
 
   const why = [];
   if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 社署<b>不計</b>資產（沒有區分保單類別）；但退保或提取出來的錢存入銀行就要計。`, true));
@@ -574,6 +622,7 @@ function oalaColumn(d){
   if (d.sup) why.push(li(`不同住子女、親友給的 <b class="num">${money(d.sup)}</b> 社署<b>不計入息</b>，但儲起來的部分會變成資產。`, true));
   if (MAR && r.spU65 && (d.mpfS || d.wS)) why.push(li("配偶未滿 65 歲：其強積金權益<b>豁免</b>計資產，每月強制性供款亦不計入息。", true));
   if (d.mpfA) why.push(li(`長者本人的強積金 <b class="num">${money(d.mpfA)}</b> 計資產（年滿 65 歲可提取）。`));
+  if (d.oth) why.push(li(`利息、股息 <b class="num">${money(d.oth)}</b> 不計入息：社署入息定義沒有列出（存款、股票本身已計資產）。如有疑問請向社署確認。`, true));
   if (d.others.length) why.push(li("同住子女等家人的入息和資產<b>不計</b>：長生津只看長者本人及配偶。"));
   if (S === 2) why.push(li("獲編配公屋本身不影響長生津，但地址改變要通知社署。"));
   if (S === 3) why.push(li("社署會隨機抽查覆檢；入息、資產超出限額或婚姻狀況改變，要即時申報。"));
@@ -598,8 +647,8 @@ function prhApplyColumn(d){
     body += box("bad", "遞表及詳細審查", "不符合資格", pmsg);
   } else {
     const st = (r, label, sub) => {
-      const ok = r.incOk && r.astOk;
-      return box(ok ? "ok" : "bad", label, ok ? "初步符合限額" : "超出限額", sub,
+      const ok = r.incOk && r.astOk, nr = ok && (near(r.inc, r.incL) || near(r.ast, r.astL));
+      return box(ok ? (nr ? "warn" : "ok") : "bad", label, ok ? (nr ? "初步符合，但接近上限" : "初步符合限額") : "超出限額", sub + (nr ? "離上限不足 5%。" : ""),
         `<div class="meter">${meter("入息", r.inc, r.incL)}${meter("資產", r.ast, r.astL)}</div>`);
     };
     const lbl = r => `${r.n} 人${r.nk ? "非親屬長者住戶" : r.all60 ? "全長者家庭（資產限額 ×2）" : "家庭"}`;
@@ -612,6 +661,8 @@ function prhApplyColumn(d){
     }
   }
   if (sch) body += box("info", "可用的長者優先安排", sch.k, sch.d);
+  else if (d.n === 1) body += box("info", "申請類別", "非長者一人申請", "未滿 58 歲的一人申請，按「配額及計分制」排隊；年滿 58 歲可改用高齡單身人士優先配屋計劃（HD274 第 2.4.2 段）。");
+  else body += box("info", "申請類別", "一般家庭申請", "按登記日期排隊；有成員年滿 60 歲可考慮「天倫樂」優先配屋計劃。");
   const why = [];
   if (now.prop) why.push(li((d.hkSelf ? "長生津豁免的自住物業，" : "") + "在公屋申請一律<b>不容許</b>擁有。", true));
   if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 房委會<b>計</b>資產（儲蓄或投資保險的保單價值，連紅利利息）；長生津則不計。`, true));
@@ -619,23 +670,25 @@ function prhApplyColumn(d){
   why.push(li("每月領取的長生津<b>不計入</b>公屋入息（申請須知 HD274 第 4.4.1(b) 段）。"));
   if (MAR && d.mpfS && !(d.sp >= 65 || d.spEarly)) why.push(li("配偶的強積金未可提取，暫不計資產；可提取後（65 歲，或 60 歲提早退休）便要計。"));
   if (d.mpfA) why.push(li(`長者本人的強積金可隨時提取，計資產 <b class="num">${money(d.mpfA)}</b>。退休時一筆過提取的款項可否扣除，申請須知沒有寫明，請向房屋署確認。`));
-  if (d.wA || d.wS) why.push(li("工作收入已扣強制性強積金供款（5%，上限 $1,500）。"));
+  if (d.wA || d.wS) why.push(li("工作收入已扣強制性強積金供款（5%，上限 $1,500）；65 歲或以上毋須供款，不扣。"));
   if (d.rent) why.push(li("收租再扣 20% 開支後計入息。"));
+  if (d.oth) why.push(li(`利息、股息 <b class="num">${money(d.oth)}</b> 房委會計入息；長生津則不計。`, true));
   why.push(li("由遞表到簽租約都要一直符合限額，限額每年 4 月更新，詳細審查時按當時限額計。"));
   return col("公屋", `申請輪候及配屋前詳細審查・限額 ${PRH.asOf}`, body + `<p class="sub-h">點解</p>${list(why)}`);
 }
 function prhTenantColumn(d){
   const n = d.n, i = idx(n);
   const all60 = d.ages.every(a => a >= 60), all55 = d.ages.every(a => a > 55);
+  const exempt = all60 || d.famEx;
   const prop = d.hkSelf || d.hkOther;
   const inc = prhIncome(d), ast = prhAssets(d);
   let sub = "", body = "";
   const why = [li("每月領取的長生津<b>不計入</b>公屋住戶入息（富戶申報表 HD1119C 列明剔除）。")];
-  if (all60) {
-    sub = "全部成員年滿 60 歲：豁免入息及資產申報";
-    body += box("ok", "住戶申報", "毋須申報入息及資產", "全戶成員年滿 60 歲，只須每兩年申報居住情況，亦毋須申報是否擁有香港住宅物業。");
-    if (d.ins || prop) why.push(li("所以保單現金價值、物業等今次都不用向房委會申報；但如日後加入未滿 60 歲的成員，便要按一般住戶申報。", true));
-    else why.push(li("如日後加入未滿 60 歲的成員（例如子女遷入），便要按一般住戶申報。"));
+  if (exempt) {
+    sub = all60 ? "全部成員年滿 60 歲：豁免入息及資產申報" : "全戶屬豁免類別：豁免入息及資產申報";
+    body += box("ok", "住戶申報", "毋須申報入息及資產", (all60 ? "全戶成員年滿 60 歲" : "全戶成員屬豁免類別（年滿 60 歲、領綜援或合資格領傷殘津貼）") + "，只須每兩年申報居住情況，亦毋須申報是否擁有香港住宅物業。");
+    if (d.ins || prop) why.push(li("所以保單現金價值、物業等今次都不用向房委會申報；但如日後加入不屬豁免類別的成員，便要按一般住戶申報。", true));
+    else why.push(li("如日後加入不屬豁免類別的成員（例如未滿 60 歲的子女遷入），便要按一般住戶申報。"));
   } else if (d.yrs === "lt10") {
     sub = "未住滿 10 年：申報居住情況及香港住宅物業";
     body += prop ? box("bad", "住戶申報", "須遷出", "任何戶籍成員擁有香港住宅物業，不論入息資產，都須遷出公屋。")
@@ -646,7 +699,8 @@ function prhTenantColumn(d){
     sub = d.yrs === "nl" ? "批出新租約政策：按富戶政策申報" : "已住滿 10 年：富戶政策申報";
     body += wellOff(inc, ast, n, i, all55, "富戶政策評估", prop);
   }
-  if (!all60) {
+  if (!exempt) {
+    if (d.oth) why.push(li(`利息、股息 <b class="num">${money(d.oth)}</b> 房委會計入息；長生津不計。`, true));
     if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 富戶申報<b>要計</b>資產（有現金價值的保險，按申報月最後一日價值）；長生津則不計。`, true));
     if (d.sup) why.push(li(`不同住子女、親友給的 <b class="num">${money(d.sup)}</b> 房委會計入息；長生津不計。`, true));
     if (d.mpfA || d.mpfS) why.push(li("可隨時提取的強積金計資產；已收取的一筆過退休金可從資產扣除（HD1119C 註八）。"));
@@ -667,6 +721,9 @@ function wellOff(inc, ast, n, i, all55, label, prop){
     const t = tiers.find(t => ratio <= t[0]);
     cls = t[0] === 2 ? "ok" : "warn"; vv = t[1];
     s = `家庭入息約為公屋入息限額 ${money(L)} 的 <b class="num">${ratio.toFixed(2)}</b> 倍。` + (t[0] === 5 ? "連續兩個申報周期在此級別須遷出。" : "");
+    const nl = L * t[0];
+    if (near(inc, nl)) { cls = "warn"; vv += "，但接近下一級"; s += `離下一級只差 <b class="num">${money(nl - inc)}</b>，入息稍增便會${t[0] === 2 ? "要繳 2.5 倍淨租金" : t[0] === 5 ? "須遷出" : "升一級租金"}。`; }
+    else if (near(ast, astLine)) { cls = "warn"; s += "資產淨值接近遷出界線。"; }
   }
   const nextLim = ratio <= 2 ? L * 2 : ratio <= 3 ? L * 3 : ratio <= 4 ? L * 4 : L * 5;
   const incLabel = ratio <= 2 ? "正常租金上限（2 倍）" : "下一級上限";
@@ -680,11 +737,12 @@ function diffBox(d){
   if (d.ins) items.push(li(`<b>保單現金價值 ${money(d.ins)}</b>：社署不計，房委會計。`, true));
   if (d.hkSelf) items.push(li("<b>自住香港物業</b>：長生津豁免，申請公屋則不可擁有。", true));
   if (d.sup) items.push(li(`<b>子女親友資助 ${money(d.sup)}</b>：社署不計入息，房委會計。`, true));
+  if (d.oth) items.push(li(`<b>利息、股息 ${money(d.oth)}</b>：社署入息定義沒有列出（不計），房委會計入息。`, true));
   if (MAR && d.mpfS) items.push(li("<b>配偶強積金</b>：社署在配偶未滿 65 歲時豁免；房委會看是否已可提取。", true));
   if (d.others.length) items.push(li("<b>同住家人</b>：長生津不計，公屋計入全戶入息資產。", true));
   if (!items.length) return "";
-  const exempt = S !== 2 && d.ages.every(a => a >= 60);
-  return `<div class="diff-box"><h3>今次影響結果的計法差異</h3>${list(items)}${exempt ? '<p class="note" style="margin:8px 0 0">現時全戶年滿 60 歲，豁免公屋入息資產申報，以上差異暫時不影響公屋；有未滿 60 歲成員加入便會影響。</p>' : ""}</div>`;
+  const exempt = S !== 2 && (d.ages.every(a => a >= 60) || d.famEx);
+  return `<div class="diff-box"><h3>今次影響結果的計法差異</h3>${list(items)}${exempt ? '<p class="note" style="margin:8px 0 0">現時全戶豁免公屋入息資產申報，以上差異暫時不影響公屋；有不屬豁免類別的成員加入便會影響。</p>' : ""}</div>`;
 }
 
 function summaryText(d){
@@ -698,11 +756,40 @@ function calc(){
   if (!S) return;
   const d = gather();
   writeHash();
-  if (!has("age") || !d.spOk) { $("#out").innerHTML = `<p class="empty">請先填${!has("age") ? "長者本人年齡" : "配偶年齡"}。</p>`; return; }
+  if (!has("age") || !d.spOk) { $("#out").innerHTML = `<p class="empty">請先填${!has("age") ? "長者本人年齡" : "配偶年齡"}。</p>`; updateMobar(); return; }
   $("#summary").innerHTML = summaryText(d);
-  $("#out").innerHTML = `<div class="res-grid">${oalaColumn(d)}${prhColumn(d)}</div>${diffBox(d)}
+  const alerts = [];
+  if (S !== 1 && d.age < 65) alerts.push(box("warn", "請檢查", "年齡與所揀情況不符", "你揀咗「領緊長生津」，但長者年齡未滿 65 歲（長生津 65 歲起）。請檢查年齡，或改揀情況。"));
+  if (MAR && d.sp < 18) alerts.push(box("warn", "請檢查", "配偶年齡", "配偶年齡好似唔啱，請檢查。"));
+  $("#out").innerHTML = (alerts.length ? `<div class="alert">${alerts.join("")}</div>` : "") + `<div class="res-grid">${oalaColumn(d)}${prhColumn(d)}</div>${diffBox(d)}
     <p class="note">只作初步估算。長生津另須符合居港年期、不可同時領綜援；公屋另須符合入境權、居港年期等。數據更新後，再開分享連結會用新限額計算；要保存當日結果請用「列印 / 存 PDF」。</p>`;
+  updateMobar();
 }
+
+/* ---------- 手機底部結果列 ---------- */
+let RES_IN_VIEW = false;
+function updateMobar(){
+  const bar = $("#mobar"), cols = $$("#out .col");
+  const show = S && cols.length === 2 && !RES_IN_VIEW;
+  bar.hidden = !show; document.documentElement.classList.toggle("has-mobar", !!(S && cols.length === 2));
+  if (!cols.length) return;
+  bar.innerHTML = cols.map(cl => {
+    const ck = cl.querySelector(".check"), cls = ["ok","warn","bad","info"].find(k => ck.classList.contains(k));
+    const stage = ck.querySelector(".t").textContent.startsWith("①") ? "遞表時" : "";
+    return `<span class="it ${cls}"><small>${cl.querySelector("h3").textContent}</small><b>${stage}${ck.querySelector(".v").textContent}</b></span>`;
+  }).join("") + '<span class="go">看結果</span>';
+}
+$("#mobar").addEventListener("click", () => $("#step3").scrollIntoView({behavior:"smooth"}));
+if ("IntersectionObserver" in window) new IntersectionObserver(es => { RES_IN_VIEW = es[0].isIntersecting; updateMobar(); }, {threshold: 0.05}).observe($("#step3"));
+
+/* ---------- 金額即時顯示 ---------- */
+function fmtOne(el){
+  let f = el.parentNode.querySelector(".fmt");
+  if (!f) { f = document.createElement("div"); f.className = "fmt"; el.insertAdjacentElement("afterend", f); }
+  const n = parseFloat(el.value);
+  f.textContent = isFinite(n) && n >= 1000 ? money(n) + (n >= 10000 ? `（${+(n / 10000).toFixed(n >= 1000000 ? 0 : 1)} 萬）` : "") : "";
+}
+function fmtAll(){ $$("#step2 .field > input[type=number]").forEach(el => { if (!["age","spAge"].includes(el.id)) fmtOne(el); }); }
 
 /* ---------- 分享連結（只放情況及數字，不含姓名） ---------- */
 function writeHash(){
@@ -730,15 +817,16 @@ function shareScheme(){
 }
 function resetAll(){
   NUMS.forEach(id => $("#" + id).value = ""); CHKS.forEach(id => $("#" + id).checked = false);
-  OTHERS = []; $("#yrs").value = "lt10"; renderPeople(); setMar(0); calc();
+  OTHERS = []; $("#yrs").value = "lt10"; renderPeople(); setMar(0); fmtAll(); calc();
 }
 
 $$("[data-s]").forEach(b => b.addEventListener("click", () => setSit(+b.dataset.s, b.classList.contains("sit"))));
 $$("#mar button").forEach(b => b.addEventListener("click", () => setMar(+b.dataset.v)));
-document.addEventListener("input", e => { if (e.target.closest("#step2")) { layout(); calc(); } });
+document.addEventListener("input", e => { if (e.target.closest("#step2")) { if (e.target.matches(".field > input[type=number]") && !["age","spAge"].includes(e.target.id)) fmtOne(e.target); layout(); calc(); } });
 document.addEventListener("change", e => { if (e.target.closest("#step2")) { layout(); calc(); } });
 renderPeople();
 readHash();
+fmtAll();
 </script>
 <script>
 /* 分享呢個方案：手機彈出分享選單（WhatsApp 等），電腦複製連結。
