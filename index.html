@@ -150,10 +150,18 @@ a{color:var(--mk-brand-ink)}
 .sit[aria-pressed="true"]{background:var(--c-soft);border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c)}
 
 /* 表格欄 */
-.grp{margin-top:18px;padding-top:16px;border-top:1px solid var(--mk-line)}
-.grp:first-child{margin-top:0;padding-top:0;border-top:0}
-.grp h3{font-size:16px;font-weight:700;margin-bottom:4px}
+/* 填資料分段：淺灰底區塊＋編號標題＋小計（唔用分類色） */
+.grp{margin-top:14px;padding:16px clamp(14px,2vw,20px) 18px;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:14px}
+.grp-h{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin-bottom:4px}
+.grp-h h3{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;margin:0}
+.gno{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;border:1.5px solid var(--mk-deep);background:var(--mk-surface);color:var(--mk-deep);font:700 13px/1 var(--mk-num);flex:none}
+.gsum{margin-left:auto;font-size:13px;color:var(--mk-muted);white-space:nowrap}
+.gsum b{font-family:var(--mk-num);font-size:16px;font-weight:700;color:var(--mk-deep);margin-left:4px}
+.gsum:empty{display:none}
 .grp>.hint{font-size:13.5px;color:var(--mk-muted);margin:0 0 12px}
+.sub-grp{grid-column:1/-1;border-top:1px dashed var(--mk-line);padding-top:12px;margin-top:2px}
+.sub-grp h4{font-size:14.5px;font-weight:700;color:var(--mk-deep);margin:0 0 2px}
+.sub-grp p{font-size:13px;color:var(--mk-muted);margin:0}
 .form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px}
 .field{min-width:0}
 .field label.l{display:block;font-size:14px;font-weight:700;margin-bottom:5px}
@@ -172,7 +180,7 @@ a{color:var(--mk-brand-ink)}
 .chk input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--mk-brand);flex:none}
 .wide{grid-column:1/-1}
 .people{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.person{display:flex;align-items:center;gap:6px;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:10px;padding:4px 6px 4px 10px}
+.person{display:flex;align-items:center;gap:6px;background:var(--mk-surface);border:1px solid var(--mk-line);border-radius:10px;padding:4px 6px 4px 10px}
 .person label{font-size:13.5px;color:var(--mk-muted);white-space:nowrap}
 .person input{width:64px;height:34px;border:1px solid var(--mk-line);border-radius:8px;padding:0 8px;font:600 16px var(--mk-num);background:var(--mk-surface)}
 .person input:focus{outline:none;border-color:var(--mk-brand)}
@@ -336,8 +344,8 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
   <section class="step" id="step2" hidden>
     <div class="step-h"><span class="step-no">2</span><h2>填資料</h2><p>金額一律以港元、每月計；資產填現時市值。不用填姓名。</p></div>
 
-    <div class="grp">
-      <h3>家庭成員</h3>
+    <div class="grp" id="g_people">
+      <div class="grp-h"><h3><span class="gno">1</span>家庭成員</h3><span class="gsum" id="sum_people"></span></div>
       <p class="hint" id="h_people">長生津只看長者本人及配偶；公屋看整戶。</p>
       <div class="form">
         <div class="field"><label class="l" for="age">長者本人年齡</label><input id="age" type="number" inputmode="numeric" min="50" max="120" placeholder="例如 68"></div>
@@ -347,6 +355,9 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
         <div class="field wide"><span class="l" style="display:block;font-size:14px;font-weight:700;margin-bottom:5px" id="l_oth">其他同住家人（公屋戶籍）</span>
           <div class="people" id="people"></div>
           <div class="hint" id="h_oth">例如同住子女、孫。只計入公屋，不計入長生津。</div></div>
+        <div class="sub-grp" id="f_famHead" hidden><h4>其他家人的入息及資產</h4><p>只用於公屋，不計入長生津。入息填扣除強制性強積金供款後的數目。</p></div>
+        <div class="field" id="f_famInc" hidden><label class="l" for="famInc">家人每月入息合計</label><input id="famInc" type="number" inputmode="numeric" min="0" placeholder="0"></div>
+        <div class="field" id="f_famAst" hidden><label class="l" for="famAst">家人資產合計</label><input id="famAst" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">存款、投資、保單現金價值、可提取強積金等</div></div>
         <div class="field wide" id="f_cssa" hidden><span class="l" style="display:block;font-size:14px;font-weight:700;margin-bottom:5px">長者現時領取</span>
           <label class="chk"><input type="checkbox" id="cssa"> 綜援</label>
           <label class="chk"><input type="checkbox" id="da"> 傷殘津貼</label>
@@ -357,8 +368,8 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
       </div>
     </div>
 
-    <div class="grp">
-      <h3>每月入息（長者及配偶）</h3>
+    <div class="grp" id="g_inc">
+      <div class="grp-h"><h3><span class="gno">2</span>每月入息（長者及配偶）</h3><span class="gsum" id="sum_inc"></span></div>
       <p class="hint">不用填長生津、生果金本身，兩邊都不計。</p>
       <div class="form">
         <div class="field"><label class="l" for="wA">長者工作收入</label><input id="wA" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">未扣強積金；包括兼職、自僱</div></div>
@@ -370,8 +381,8 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
       </div>
     </div>
 
-    <div class="grp">
-      <h3>資產（長者及配偶合計）</h3>
+    <div class="grp" id="g_ast">
+      <div class="grp-h"><h3><span class="gno">3</span>資產（長者及配偶合計）</h3><span class="gsum" id="sum_ast"></span></div>
       <p class="hint">按現時市值，扣除按揭等欠款。保單現金價值和強積金分開填，因為兩個部門計法不同。</p>
       <div class="form">
         <div class="field"><label class="l" for="cash">現金及銀行存款</label><input id="cash" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">包括外幣、定期、電子錢包</div></div>
@@ -380,20 +391,12 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
         <div class="field ins"><label class="l" for="mpfA">長者的強積金／公積金</label><input id="mpfA" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">未提取的結餘；已提取的放入存款</div></div>
         <div class="field ins f-sp" hidden><label class="l" for="mpfS">配偶的強積金／公積金</label><input id="mpfS" type="number" inputmode="numeric" min="0" placeholder="0"><label class="chk" id="f_spEarly" hidden><input type="checkbox" id="spEarly"> 配偶已可提取（例如 60 歲提早退休）</label></div>
         <div class="field"><label class="l" for="prop">其他物業、車位、內地或海外物業</label><input id="prop" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">非香港住宅；包括鄉下祖屋</div></div>
-        <div class="field wide"><label class="chk"><input type="checkbox" id="hkSelf"> 擁有一個<b>自住</b>的香港住宅物業（包括與他人共同擁有）</label>
+        <div class="field wide"><label class="chk"><input type="checkbox" id="hkSelf"><span>擁有一個<b>自住</b>的香港住宅物業（包括與他人共同擁有）</span></label>
           <label class="chk"><input type="checkbox" id="hkOther"> 另外擁有其他香港住宅物業（非自住）</label>
           <div class="field" id="f_hkOtherV" hidden style="max-width:360px;margin-top:6px"><label class="l" for="hkOtherV">非自住香港住宅物業市值</label><input id="hkOtherV" type="number" inputmode="numeric" min="0" placeholder="0"></div></div>
       </div>
     </div>
 
-    <div class="grp" id="g_fam" hidden>
-      <h3>其他同住家人</h3>
-      <p class="hint">只用於公屋。入息填扣除強制性強積金供款後的數目。</p>
-      <div class="form">
-        <div class="field"><label class="l" for="famInc">家人每月入息合計</label><input id="famInc" type="number" inputmode="numeric" min="0" placeholder="0"></div>
-        <div class="field"><label class="l" for="famAst">家人資產合計</label><input id="famAst" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">存款、投資、保單現金價值、可提取強積金等</div></div>
-      </div>
-    </div>
 
     <div class="actions">
       <button type="button" class="btn primary" onclick="document.getElementById('step3').scrollIntoView({behavior:'smooth'})">看結果 ↓</button>
@@ -526,7 +529,7 @@ function layout(){
   $("#f_cssa").hidden = S !== 1;
   const agesNow = [v("age")].concat(MAR && has("spAge") ? [sp] : [], OTHERS.map(a => parseFloat(a)).filter(a => isFinite(a)));
   $("#f_famEx").hidden = !(S !== 2 && has("age") && agesNow.some(a => a < 60));
-  $("#g_fam").hidden = !OTHERS.length;
+  ["#f_famHead","#f_famInc","#f_famAst"].forEach(s => $(s).hidden = !OTHERS.length);
   $("#f_hkOtherV").hidden = !c("hkOther");
   $("#l_oth").textContent = S === 2 ? "其他一同申請公屋的家人" : "其他公屋戶籍成員";
   $("#h_oth").textContent = S === 2 ? "例如一同上樓的子女、孫。只計入公屋，不計入長生津。" : "同一單位戶籍內的子女、孫等。只計入公屋，不計入長生津。";
@@ -754,6 +757,7 @@ function summaryText(d){
 
 function calc(){
   if (!S) return;
+  updateSums();
   const d = gather();
   writeHash();
   if (!has("age") || !d.spOk) { $("#out").innerHTML = `<p class="empty">請先填${!has("age") ? "長者本人年齡" : "配偶年齡"}。</p>`; updateMobar(); return; }
@@ -766,6 +770,16 @@ function calc(){
   updateMobar();
 }
 
+/* ---------- 每段小計（只係將已填數字加埋，唔代表兩邊實際計法） ---------- */
+function updateSums(){
+  const sum = ids => ids.filter(id => !$("#" + id).closest("[hidden]")).reduce((s, id) => s + v(id), 0);
+  const inc = sum(["wA","wS","pen","rent","sup","oth"]);
+  const ast = sum(["cash","inv","ins","mpfA","mpfS","prop","hkOtherV"]);
+  const n = (has("age") ? 1 : 0) + (MAR ? 1 : 0) + OTHERS.length;
+  $("#sum_people").innerHTML = n ? `共<b>${n}</b>人` : "";
+  $("#sum_inc").innerHTML = inc ? `已填合計<b>${money(inc)}</b>` : "";
+  $("#sum_ast").innerHTML = ast ? `已填合計<b>${money(ast)}</b>` : "";
+}
 /* ---------- 手機底部結果列 ---------- */
 let RES_IN_VIEW = false;
 function updateMobar(){
