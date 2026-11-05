@@ -476,6 +476,7 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
     <h4>資料來源（2026 年 11 月核實）</h4>
     <ul class="src">
       <li><a href="https://www.swd.gov.hk/oala/" target="_blank" rel="noopener">社會福利署：長者生活津貼（每月 $4,345；2026 年 2 月 1 日起限額）</a></li>
+      <li><a href="https://www.1823.gov.hk/tc/faq/what-are-the-eligibility-criteria-of-old-age-allowance-what-is-the-amount-of-assistance-payable" target="_blank" rel="noopener">1823：高齡津貼申請資格及金額（每月 $1,675；2026 年 2 月 1 日起）</a></li>
       <li><a href="https://www.swd.gov.hk/oala/doc/2026/SWD675A_SSA%20Guidance%20Notes_Chi_(8_2026).pdf" target="_blank" rel="noopener">社署：公共福利金計劃申請指引 SWD675A（2026 年 8 月）</a></li>
       <li><a href="https://www.swd.gov.hk/oala/doc/OALAWebsiteFAQ_Income_Asset_TC.pdf" target="_blank" rel="noopener">社署：長者生活津貼常見問題（入息及資產）</a></li>
       <li><a href="https://www.housingauthority.gov.hk/tc/flat-application/income-and-asset-limits/index.html" target="_blank" rel="noopener">房委會：公屋入息及資產限額（2026 年 4 月 1 日起）</a></li>
@@ -504,6 +505,7 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
    =================================================================== */
 const OALA = {
   asOf: "2026 年 2 月 1 日", rate: 4345,
+  oaa: 1675, // 生果金（高齡津貼）每月金額，同日調整
   single: { inc: 10900, ast: 415000 },
   couple: { inc: 16680, ast: 630000 }
 };
@@ -692,8 +694,8 @@ function oalaColumn(d){
   else main = box("bad", "結果", S === 1 ? "初步不符合" : "超出限額",
     (!r.incOk && !r.astOk ? "入息和資產都超出" : !r.incOk ? "入息超出" : "資產超出") + "長生津上限" + (S === 1 ? "。" : "，須即時通知社署。"), meters);
   if (r.ageOk && !(r.incOk && r.astOk)) main += d.age >= 70
-    ? box("info", "另一選擇", "可改申請生果金", "生果金（高齡津貼）年滿 70 歲可申請，不設入息及資產審查；不可與長生津同時領取。")
-    : box("info", "另一選擇", "70 歲起可申請生果金", "生果金（高齡津貼）不設入息及資產審查，年滿 70 歲可申請。");
+    ? box("info", "另一選擇", "可改申請生果金", `生果金（高齡津貼）每月 <b class="num">${money(OALA.oaa)}</b>，年滿 70 歲可申請，不設入息及資產審查；不可與長生津同時領取。`)
+    : box("info", "另一選擇", "70 歲起可申請生果金", `生果金（高齡津貼）每月 <b class="num">${money(OALA.oaa)}</b>，不設入息及資產審查，年滿 70 歲可申請。`);
   if (d.cssa || d.da) main += box("warn", "留意", "不可同時領取", `長生津不可與${d.cssa && d.da ? "綜援或傷殘津貼" : d.cssa ? "綜援" : "傷殘津貼"}同時領取；轉領長生津前，先比較兩者金額，並向社署查詢。`);
 
   const why = [];
