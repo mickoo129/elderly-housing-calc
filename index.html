@@ -358,7 +358,7 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
 <div class="mk-wrap">
   <section class="intro">
     <h1>長生津和公屋，兩邊一次過看</h1>
-    <p>社署（長生津）和房委會（公屋）各自審查入息及資產，計法並不相同：例如保單現金價值，社署不計，房委會計。先揀情況，再填需要的資料，結果分兩欄顯示。只作初步參考，最終以兩個部門審核為準。</p>
+    <p>社署（長生津）和房委會（公屋）各自審查入息及資產，計法並不相同：例如有人壽、醫療或危疾保障的保單現金價值，社署不計，房委會計。先揀情況，再填需要的資料，結果分兩欄顯示。只作初步參考，最終以兩個部門審核為準。</p>
     <div class="asof">
       <span>限額：長生津 <b>2026 年 2 月 1 日</b>起｜公屋 <b>2026/27 年度</b>（4 月 1 日起）</span>
     </div>
@@ -419,7 +419,8 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
       <div class="form">
         <div class="field"><label class="l" for="cash">現金及銀行存款</label><input id="cash" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">包括外幣、定期、電子錢包</div></div>
         <div class="field"><label class="l" for="inv">股票、基金、債券、金條</label><input id="inv" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">首飾不用填</div></div>
-        <div class="field ins"><label class="l" for="ins">保單現金價值</label><input id="ins" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">儲蓄、投資、分紅保單：現金價值連累積紅利及利息</div></div>
+        <div class="field ins"><label class="l" for="ins">保單現金價值</label><input id="ins" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">所有保單合計：現金價值連累積紅利及利息</div></div>
+        <div class="field ins"><label class="l" for="insX">當中冇人壽、醫療、危疾保障的保單</label><input id="insX" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">例如純儲蓄、純投資計劃；社署會當投資或儲蓄計。已包括在上一欄</div></div>
         <div class="field ins"><label class="l" for="mpfA">長者的強積金／公積金</label><input id="mpfA" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">未提取的結餘；已提取的放入存款</div></div>
         <div class="field ins f-sp" hidden><label class="l" for="mpfS">配偶的強積金／公積金</label><input id="mpfS" type="number" inputmode="numeric" min="0" placeholder="0"><label class="chk" id="f_spEarly" hidden><input type="checkbox" id="spEarly"> 配偶已可提取（例如 60 歲提早退休）</label></div>
         <div class="field"><label class="l" for="prop">其他物業、車位、內地或海外物業</label><input id="prop" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">非香港住宅；包括鄉下祖屋</div></div>
@@ -450,7 +451,7 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
       <thead><tr><th>項目</th><th>長生津（社署）</th><th>公屋（房委會）</th></tr></thead>
       <tbody>
         <tr><td>審查單位</td><td>長者本人；已婚或同居則夫婦合併</td><td>全戶戶籍成員（包括同住子女）</td></tr>
-        <tr><td>保單現金價值</td><td class="n">不計（社署沒有區分保單類別）</td><td class="y">計（儲蓄或投資保險的保單價值，連紅利利息）</td></tr>
+        <tr><td>保單現金價值</td><td class="n">有人壽、醫療、危疾等保障成份的不計（包括紅利、利息）；冇保障成份的按投資或儲蓄計</td><td class="y">計（儲蓄或投資保險的保單價值，連紅利利息）</td></tr>
         <tr><td>自住香港住宅物業</td><td class="n">一個豁免</td><td class="y">申請公屋不可擁有；住戶擁有須遷出</td></tr>
         <tr><td>內地、海外物業</td><td>計資產</td><td>計資產（扣除按揭）</td></tr>
         <tr><td>強積金</td><td>長者本人的計；配偶未滿 65 歲豁免</td><td>已提取或可隨時提取的計</td></tr>
@@ -461,7 +462,7 @@ td.y,td.n{color:var(--mk-deep);font-weight:700}
         <tr><td>利息、股息</td><td class="n">入息定義沒有列出（存款、股票本身計資產）</td><td class="y">計入息</td></tr>
       </tbody>
     </table></div>
-    <p class="note">本工具未計算：居港年期、綜援（不可同時領長生津）、年金已繳保費（長生津豁免）、離港日數等。一筆過退休金在申請公屋時可否扣除，房委會申請須知沒有寫明；投資相連保單在長生津如何處理，社署亦沒有寫明，請向有關部門確認。</p>
+    <p class="note">本工具未計算：居港年期、綜援（不可同時領長生津）、年金已繳保費（長生津豁免）、離港日數等。申請公屋時，已提取的強積金或一筆過退休金當存款計，不設扣除（HD274 第 4.4.2 段）；富戶申報則可扣除（HD1119C）。投資相連壽險算唔算「有保障成份」，社署沒有點名，請向社署確認。</p>
     </div>
   </section>
 </div>
@@ -526,7 +527,7 @@ const PRH = {
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const money = n => "$" + Math.round(n).toLocaleString("en-US");
-const NUMS = ["age","spAge","wA","wS","pen","rent","sup","oth","cash","inv","ins","mpfA","mpfS","prop","hkOtherV","famInc","famAst"];
+const NUMS = ["age","spAge","wA","wS","pen","rent","sup","oth","cash","inv","ins","insX","mpfA","mpfS","prop","hkOtherV","famInc","famAst"];
 const CHKS = ["nonkin","spEarly","hkSelf","hkOther","cssa","da","famEx"];
 let S = 0, MAR = 0, OTHERS = [];
 
@@ -581,7 +582,7 @@ function gather(){
   const wA = v("wA"), wS = MAR ? v("wS") : 0;
   const hkSelf = c("hkSelf"), hkOther = c("hkOther");
   return { age, sp, spOk: !MAR || has("spAge"), others, ages, n, wA, wS, pen: v("pen"), rent: v("rent"), sup: v("sup"), oth: v("oth"),
-    cash: v("cash"), inv: v("inv"), ins: v("ins"), mpfA: v("mpfA"), mpfS: MAR ? v("mpfS") : 0, prop: v("prop"),
+    cash: v("cash"), inv: v("inv"), ins: v("ins"), insX: Math.min(v("insX"), v("ins")), insP: v("ins") - Math.min(v("insX"), v("ins")), mpfA: v("mpfA"), mpfS: MAR ? v("mpfS") : 0, prop: v("prop"),
     hkSelf, hkOther, hkOtherV: hkOther ? v("hkOtherV") : 0, famInc: others.length ? v("famInc") : 0, famAst: others.length ? v("famAst") : 0,
     nonkin: S === 2 && others.length > 0 && c("nonkin"), spEarly: c("spEarly"), yrs: $("#yrs").value,
     cssa: S === 1 && c("cssa"), da: S === 1 && c("da"), famEx: S !== 2 && c("famEx") && !$("#f_famEx").hidden };
@@ -592,7 +593,8 @@ function oalaCalc(d){
   const spU65 = MAR && d.sp < 65;
   // 社署入息定義：工作、自僱、長俸、淨租金、固定年金；利息股息沒有列出（存款本身計資產）
   const inc = d.wA + Math.max(0, d.wS - (spU65 ? mpfDed(d.wS, d.sp) : 0)) + d.pen + d.rent;
-  const ast = d.cash + d.inv + d.mpfA + (MAR && !spU65 ? d.mpfS : 0) + d.prop + d.hkOtherV;
+  // 保單：有人壽／醫療／危疾保障成份嘅現金價值（連紅利利息）豁免；冇保障成份嘅按投資或儲蓄計
+  const ast = d.cash + d.inv + d.insX + d.mpfA + (MAR && !spU65 ? d.mpfS : 0) + d.prop + d.hkOtherV;
   return { L, inc, ast, spU65, ageOk: d.age >= 65, incOk: inc <= L.inc, astOk: ast <= L.ast };
 }
 
@@ -613,7 +615,8 @@ function items(d){
   add("inc", "其他家人入息", d.famInc, null, "只看長者及配偶", d.famInc, "");
   add("ast", "現金及銀行存款", d.cash, d.cash, "", d.cash, "");
   add("ast", "股票、基金、債券、金條", d.inv, d.inv, "", d.inv, "");
-  add("ast", "保單現金價值", d.ins, null, "社署豁免", d.ins, "");
+  add("ast", "有保障成份的保單現金價值", d.insP, null, "社署豁免", d.insP, "");
+  add("ast", "冇保障成份的保單現金價值", d.insX, d.insX, "", d.insX, "");
   add("ast", "長者強積金", d.mpfA, d.mpfA, "", d.mpfA, "");
   add("ast", "配偶強積金", MAR ? d.mpfS : 0, spU65 ? null : d.mpfS, spU65 ? "配偶未滿 65 歲豁免" : "", spWd ? d.mpfS : null, spWd ? "" : "未可提取");
   add("ast", "其他物業、內地或海外物業", d.prop, d.prop, "", d.prop, "");
@@ -699,7 +702,8 @@ function oalaColumn(d){
   if (d.cssa || d.da) main += box("warn", "留意", "不可同時領取", `長生津不可與${d.cssa && d.da ? "綜援或傷殘津貼" : d.cssa ? "綜援" : "傷殘津貼"}同時領取；轉領長生津前，先比較兩者金額，並向社署查詢。`);
 
   const why = [];
-  if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 社署<b>不計</b>資產（沒有區分保單類別）；但退保或提取出來的錢存入銀行就要計。`, true));
+  if (d.insP) why.push(li(`有人壽、醫療、危疾等保障成份的保單現金價值 <b class="num">${money(d.insP)}</b>（包括紅利、利息）社署<b>不計</b>資產；但退保或提取出來的錢存入銀行就要計。`, true));
+  if (d.insX) why.push(li(`冇保障成份的保單 <b class="num">${money(d.insX)}</b> 社署按投資或儲蓄<b>計</b>資產。`, true));
   if (d.hkSelf) why.push(li("一個香港自住物業<b>豁免</b>。", true));
   if (d.hkOtherV || d.prop) why.push(li(`非自住物業（包括內地、海外）計資產，共 <b class="num">${money(d.hkOtherV + d.prop)}</b>；收租淨收益計入息。`));
   if (d.sup) why.push(li(`不同住子女、親友給的 <b class="num">${money(d.sup)}</b> 社署<b>不計入息</b>，但儲起來的部分會變成資產。`, true));
@@ -748,11 +752,11 @@ function prhApplyColumn(d){
   else body += box("info", "申請類別", "一般家庭申請", "按登記日期排隊；有成員年滿 60 歲可考慮「天倫樂」優先配屋計劃。");
   const why = [];
   if (now.prop) why.push(li((d.hkSelf ? "長生津豁免的自住物業，" : "") + "在公屋申請一律<b>不容許</b>擁有。", true));
-  if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 房委會<b>計</b>資產（儲蓄或投資保險的保單價值，連紅利利息）；長生津則不計。`, true));
+  if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 房委會<b>計</b>資產（儲蓄或投資保險的保單價值，連紅利利息）；長生津只豁免有保障成份的保單。`, true));
   if (d.sup) why.push(li(`不同住子女、親友給的 <b class="num">${money(d.sup)}</b> 房委會<b>計入息</b>（親友資助）；長生津則不計。`, true));
   why.push(li("每月領取的長生津<b>不計入</b>公屋入息（申請須知 HD274 第 4.4.1(b) 段）。"));
   if (MAR && d.mpfS && !(d.sp >= 65 || d.spEarly)) why.push(li("配偶的強積金未可提取，暫不計資產；可提取後（65 歲，或 60 歲提早退休）便要計。"));
-  if (d.mpfA) why.push(li(`長者本人的強積金可隨時提取，計資產 <b class="num">${money(d.mpfA)}</b>。退休時一筆過提取的款項可否扣除，申請須知沒有寫明，請向房屋署確認。`));
+  if (d.mpfA) why.push(li(`長者本人的強積金可隨時提取，計資產 <b class="num">${money(d.mpfA)}</b>。已提取的強積金或一筆過退休金當存款計，申請公屋不設扣除（HD274 第 4.4.2 段）。`));
   if (d.wA || d.wS) why.push(li("工作收入已扣強制性強積金供款（5%，上限 $1,500）；65 歲或以上毋須供款，不扣。"));
   if (d.rent) why.push(li("收租再扣 20% 開支後計入息。"));
   if (d.oth) why.push(li(`利息、股息 <b class="num">${money(d.oth)}</b> 房委會計入息；長生津則不計。`, true));
@@ -784,7 +788,7 @@ function prhTenantColumn(d){
   }
   if (!exempt) {
     if (d.oth) why.push(li(`利息、股息 <b class="num">${money(d.oth)}</b> 房委會計入息；長生津不計。`, true));
-    if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 富戶申報<b>要計</b>資產（有現金價值的保險，按申報月最後一日價值）；長生津則不計。`, true));
+    if (d.ins) why.push(li(`保單現金價值 <b class="num">${money(d.ins)}</b> 富戶申報<b>要計</b>資產（有現金價值的保險，按申報月最後一日價值）；長生津只豁免有保障成份的保單。`, true));
     if (d.sup) why.push(li(`不同住子女、親友給的 <b class="num">${money(d.sup)}</b> 房委會計入息；長生津不計。`, true));
     if (d.mpfA || d.mpfS) why.push(li("可隨時提取的強積金計資產；已收取的一筆過退休金可從資產扣除（HD1119C 註八）。"));
     if (all55 && n <= 3) why.push(li(`全部成員年逾 55 歲的 ${n} 人家庭，資產遷出界線為 <b class="num">${money(PRH.wo55Ast)}</b>。`));
@@ -817,7 +821,7 @@ function wellOff(inc, ast, n, i, all55, label, prop){
 /* ---------- 兩邊差異 ---------- */
 function diffBox(d){
   const items = [];
-  if (d.ins) items.push(li(`<b>保單現金價值 ${money(d.ins)}</b>：社署不計，房委會計。`, true));
+  if (d.insP) items.push(li(`<b>有保障成份的保單現金價值 ${money(d.insP)}</b>：社署不計，房委會計。`, true));
   if (d.hkSelf) items.push(li("<b>自住香港物業</b>：長生津豁免，申請公屋則不可擁有。", true));
   if (d.sup) items.push(li(`<b>子女親友資助 ${money(d.sup)}</b>：社署不計入息，房委會計。`, true));
   if (d.oth) items.push(li(`<b>利息、股息 ${money(d.oth)}</b>：社署入息定義沒有列出（不計），房委會計入息。`, true));
